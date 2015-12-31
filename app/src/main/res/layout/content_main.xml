@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:weightSum="5.4"
+    tools:context="com.scienstechnologies.newsfeed.MainActivity"
+    tools:showIn="@layout/activity_main">
+<!--
+
+    <ImageView
+
+        android:id="@+id/iv_page_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:background="#ffffff"
+        android:src="@drawable/silicon_slopes" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:weightSum="3"
+        android:orientation="vertical">
+
+        <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2.4"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:text="Utah’s Unicorns, How “Silicon Slopes” is Gaining Momentum" />
+
+        <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+            android:layout_weight="0.6"
+            android:layout_width="match_parent"
+            android:textSize="24sp"
+            android:layout_height="match_parent"
+            android:text="@string/news_details" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.4">
+
+        <RelativeLayout
+            android:paddingTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    -->
+
+</LinearLayout>

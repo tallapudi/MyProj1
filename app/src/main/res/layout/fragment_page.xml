@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llfragmentpagebackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:padding="4dp"
+    android:weightSum="5.4"
+    tools:context="com.scienstechnologies.newsfeed.MainActivity"
+    tools:showIn="@layout/activity_main">
+    <!---->
+
+
+    <ImageView
+
+        android:id="@+id/iv_page_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:src="@drawable/silicon_slopes" />
+
+    <LinearLayout
+        android:id="@+id/llTotalText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:id="@+id/rlContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4">
+
+            <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+                android:id="@+id/tvNewsHead"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:text="Utah’s Unicorns, How “Silicon Slopes” is Gaining Momentum"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:layout_toLeftOf="@+id/ivCategoryIcon"
+                android:layout_toStartOf="@+id/ivCategoryIcon" />
+            <ImageView
+                android:id="@+id/ivCategoryIcon"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/international_icon"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_weight="0.4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="By "/>
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/tvAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="Jimmy Johnson"/>
+            <TextView
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=", "/>
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/tvSource"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="London Times"/>
+
+            <TextView
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=", "/>
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sept 23, Friday"/>
+        </LinearLayout>
+
+
+        <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+            android:id="@+id/tvNewsDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:text="@string/news_details"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.4"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp">
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

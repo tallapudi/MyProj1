@@ -1,0 +1,40 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.scienstechnologies.newsfeed.MainActivity">
+
+
+    <item
+        android:title="Refresh"
+        android:id="@+id/icon_refresh"
+        android:orderInCategory="99"
+        app:showAsAction="always"
+        android:icon="@drawable/refresh_icon"/>
+
+    <item
+        android:id="@+id/action_bar_notification"
+        android:orderInCategory="101"
+        android:title="Notifications"
+        app:showAsAction="never"
+        android:checkable="true"/>
+
+    <item
+        android:id="@+id/action_nightmode"
+        android:orderInCategory="101"
+        android:title="Night Mode"
+        app:showAsAction="never"
+        android:checkable="true"/>
+
+    <item
+        android:id="@+id/action_sharethisapp"
+        android:orderInCategory="101"
+        android:title="Rate this app"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_likethisapp"
+        android:orderInCategory="101"
+        android:title="Like this App"
+        app:showAsAction="never"/>
+
+</menu>

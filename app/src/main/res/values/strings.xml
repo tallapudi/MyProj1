@@ -1,0 +1,54 @@
+<resources>
+    <string name="drawer_name">Choose Category</string>
+    <string name="app_name">News Feed</string>
+    <string name="action_settings">Settings</string>
+    <string name="news_details">It’s snowing this time of year along the Wasatch Front, a patch of connected cities spreading from Ogden to Provo, that some in Utah refer to as the “Silicon Slopes.” But this part of the Rockies isn’t just turning out large amounts of fluffy, white stuff, it also seems to be producing a strong herd of unicorns, or startups worth at least $1 billion on paper.</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item >Bookmarked</item>
+        <item >All News</item>
+        <item >Top</item>
+        <item >National</item>
+        <item >International</item>
+        <item >Politics</item>
+        <item>Business</item>
+        <item>Sports</item>
+        <item>+More</item>
+    </string-array>
+
+    <string-array name="nav_drawer_more_items">
+        <item >Bookmarked</item>
+        <item >All News</item>
+        <item >Top</item>
+        <item >National</item>
+        <item >International</item>
+        <item >Politics</item>
+        <item>Business</item>
+        <item>Sports</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/bookmark_icon</item>
+        <item>@drawable/all_news_icon</item>
+        <item>@drawable/top_icon</item>
+        <item>@drawable/national_icon</item>
+        <item>@drawable/international_icon</item>
+        <item>@drawable/politics_icon</item>
+        <item>@drawable/business_icon</item>
+        <item>@drawable/sports_icon</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+
+
+
+
+
+</resources>
