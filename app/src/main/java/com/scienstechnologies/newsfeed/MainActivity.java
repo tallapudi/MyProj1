@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -323,10 +324,16 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.action_nightmode:
-                item.setChecked(!item.isChecked());
                 if (item.isChecked()) {
 
+                    item.setChecked(!item.isChecked());
+                    CoordinatorLayout coordinatorLayout =(CoordinatorLayout) findViewById(R.id.coordinator_main);
+                    coordinatorLayout.setBackgroundColor(getResources().getColor(R.color.list_item_title));
 
+                }else{
+                    item.setChecked(true);
+                    CoordinatorLayout coordinatorLayout =(CoordinatorLayout) findViewById(R.id.coordinator_main);
+                    coordinatorLayout.setBackgroundColor(getResources().getColor(R.color.black));
                 }
                 return true;
             case R.id.action_likethisapp:
@@ -369,18 +376,23 @@ public class MainActivity extends AppCompatActivity {
             fragmentPosition = position;
 
 
+
             return pageFragment;
         }
 
         @Override
         public int getCount() {
+
             return num_pages;
+            
         }
 
 
         public Fragment getActiveFragment(ViewPager container, int position) {
+
             String name = makeFragmentName(container.getId(), position);
             return getSupportFragmentManager().findFragmentByTag(name);
+
         }
 
         private String makeFragmentName(int viewId, int index) {

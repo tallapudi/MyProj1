@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.scienstechnologies.newsfeed.MainActivity;
 import com.scienstechnologies.newsfeed.R;
 import com.scienstechnologies.newsfeed.ShareActivity;
+import com.scienstechnologies.newsfeed.WebView.WebViewActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +38,7 @@ import volley.AppController;
 public class PageFragment extends Fragment {
 
 
-    private static final String TAG = PageFragment.class.getSimpleName() ;
+    private static final String TAG = PageFragment.class.getSimpleName();
     TextView tvNewsHead;
     TextView tvNewsDetails;
     LinearLayout llFragmentPageBackground;
@@ -46,6 +48,7 @@ public class PageFragment extends Fragment {
     TextView tvSource;
     TextView tvDate;
     LinearLayout llTotalText;
+    RelativeLayout rlContent;
     ImageView ivCategoryIcon;
 
     // Doctors json url
@@ -60,7 +63,6 @@ public class PageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
 
 
-
         ImageView ivPageImage = (ImageView) rootView.findViewById(R.id.iv_page_image);
 
         tvNewsHead = (TextView) rootView.findViewById(R.id.tvNewsHead);
@@ -69,6 +71,7 @@ public class PageFragment extends Fragment {
         tvSource = (TextView) rootView.findViewById(R.id.tvSource);
         tvDate = (TextView) rootView.findViewById(R.id.tvDate);
         llTotalText = (LinearLayout) rootView.findViewById(R.id.llTotalText);
+        rlContent = (RelativeLayout) rootView.findViewById(R.id.rlContent);
         ivCategoryIcon = (ImageView) rootView.findViewById(R.id.ivCategoryIcon);
 
         ivPageImage.setOnClickListener(new View.OnClickListener() {
@@ -80,18 +83,20 @@ public class PageFragment extends Fragment {
         });
 
 
+
         return rootView;
     }
 
-    public void setFragmentBackground(){
+    public void setFragmentBackground() {
         llFragmentPageBackground.setBackgroundColor(getResources().getColor(R.color.black));
     }
-    public void setFragmentTextHeadingColor(){
+
+    public void setFragmentTextHeadingColor() {
 
         tvNewsHead.setTextColor(getResources().getColor(R.color.list_item_title));
     }
 
-    public void setNews(int i){
+    public void setNews(int i) {
         final int j = i;
 
         StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -103,21 +108,36 @@ public class PageFragment extends Fragment {
 
                     final Bundle args = getArguments();
                     String jsonString = args.getString("jsonData");
-                    JSONObject object = new JSONObject(jsonString);
+                    final JSONObject object = new JSONObject(jsonString);
                     String message = object.getString("message");
                     Log.d(TAG, message);
                     String status = object.getString("status");
 
                     if (status.equals("success")) {
                         JSONArray jsonArray = object.getJSONArray("data");
-                        JSONObject jsonObject = jsonArray.getJSONObject(j);
+                        final JSONObject jsonObject = jsonArray.getJSONObject(j);
                         tvNewsDetails.setText(jsonObject.getString("content"));
                         tvNewsHead.setText(jsonObject.getString("heading"));
                         tvAuthor.setText(jsonObject.getString("author"));
                         tvSource.setText(jsonObject.getString("source"));
                         tvDate.setText(jsonObject.getString("days"));
 
-                        switch(Integer.parseInt(jsonObject.getString("category"))){
+                        final String sourceLink = jsonObject.getString("source_link");
+
+                        llTotalText.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent i = new Intent(getContext(), WebViewActivity.class);
+
+                                Log.i(TAG, sourceLink);
+                                i.putExtra("link", sourceLink);
+                                startActivity(i);
+
+                            }
+                        });
+
+                        switch (Integer.parseInt(jsonObject.getString("category"))) {
                             case 1:
                                 ivCategoryIcon.setImageResource(R.drawable.bookmark_icon);
                                 break;
@@ -147,14 +167,9 @@ public class PageFragment extends Fragment {
                                 break;
                         }
 
-                        llTotalText.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
 
 
 
-                            }
-                        });
 
                     }
 

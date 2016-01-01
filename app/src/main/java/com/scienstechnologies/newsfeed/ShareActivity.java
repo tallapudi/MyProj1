@@ -10,6 +10,7 @@ public class ShareActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.rel1);
@@ -18,6 +19,7 @@ public class ShareActivity extends Activity {
             public void onClick(View v) {
                 finish();
             }
+
         });
 
     }

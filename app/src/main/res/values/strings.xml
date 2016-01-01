@@ -9,24 +9,24 @@
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item >Bookmarked</item>
-        <item >All News</item>
-        <item >Top</item>
-        <item >National</item>
-        <item >International</item>
-        <item >Politics</item>
+        <item>Bookmarked</item>
+        <item>All News</item>
+        <item>Top</item>
+        <item>National</item>
+        <item>International</item>
+        <item>Politics</item>
         <item>Business</item>
         <item>Sports</item>
         <item>+More</item>
     </string-array>
 
     <string-array name="nav_drawer_more_items">
-        <item >Bookmarked</item>
-        <item >All News</item>
-        <item >Top</item>
-        <item >National</item>
-        <item >International</item>
-        <item >Politics</item>
+        <item>Bookmarked</item>
+        <item>All News</item>
+        <item>Top</item>
+        <item>National</item>
+        <item>International</item>
+        <item>Politics</item>
         <item>Business</item>
         <item>Sports</item>
     </string-array>
@@ -46,9 +46,6 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
-
-
-
 
 
 </resources>
