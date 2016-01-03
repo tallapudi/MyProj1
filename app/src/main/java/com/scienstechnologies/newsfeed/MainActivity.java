@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -37,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import volley.AppController;
 
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
      * and next wizard steps.
      */
 
-    private ViewPager mPager;
+    private ViewPager mViewPager;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -77,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
+    public Map<Integer, PageFragment> mPageReferenceMap = new HashMap<Integer, PageFragment>();
+
     public static String myJsonString;
 
 
@@ -93,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //instantiate a viewpager and a pageradapter
-        mPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -203,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         myJsonString = response;
 
                         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),bundle);
-                        mPager.setAdapter(mPagerAdapter);
+                        mViewPager.setAdapter(mPagerAdapter);
                         mPagerAdapter.notifyDataSetChanged();
 
                     }
@@ -327,13 +332,22 @@ public class MainActivity extends AppCompatActivity {
                 if (item.isChecked()) {
 
                     item.setChecked(!item.isChecked());
-                    CoordinatorLayout coordinatorLayout =(CoordinatorLayout) findViewById(R.id.coordinator_main);
-                    coordinatorLayout.setBackgroundColor(getResources().getColor(R.color.list_item_title));
+//                    CoordinatorLayout coordinatorLayout =(CoordinatorLayout) findViewById(R.id.coordinator_main);
+//                    coordinatorLayout.setBackgroundColor(getResources().getColor(R.color.list_item_title));
+                    int index = mViewPager.getCurrentItem();
+                    ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter)mViewPager.getAdapter();
+                    PageFragment fragment = adapter.getFragment(index);
+                    fragment.setFragmentBackgroundDaymode();
+                    fragment.setFragmentTextColorDaymode();
+
 
                 }else{
                     item.setChecked(true);
-                    CoordinatorLayout coordinatorLayout =(CoordinatorLayout) findViewById(R.id.coordinator_main);
-                    coordinatorLayout.setBackgroundColor(getResources().getColor(R.color.black));
+                    int index = mViewPager.getCurrentItem();
+                    ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter)mViewPager.getAdapter();
+                    PageFragment fragment = adapter.getFragment(index);
+                    fragment.setFragmentBackgroundNightmode();
+                    fragment.setFragmentTextColorNightmode();
                 }
                 return true;
             case R.id.action_likethisapp:
@@ -371,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
             //Log.d(TAG, String.valueOf(position));
 
             PageFragment pageFragment = new PageFragment();
+            mPageReferenceMap.put(position, pageFragment);
             pageFragment.setArguments(this.fragmentBundle);
             pageFragment.setNews(position);
             fragmentPosition = position;
@@ -387,6 +402,10 @@ public class MainActivity extends AppCompatActivity {
             
         }
 
+        public PageFragment getFragment(int key) {
+            return mPageReferenceMap.get(key);
+        }
+
 
         public Fragment getActiveFragment(ViewPager container, int position) {
 
@@ -399,6 +418,11 @@ public class MainActivity extends AppCompatActivity {
             return "android:switcher:" + viewId + ":" + index;
         }
 
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+            mPageReferenceMap.remove(position);
+        }
     }
 
 

@@ -73,6 +73,8 @@ public class PageFragment extends Fragment {
         llTotalText = (LinearLayout) rootView.findViewById(R.id.llTotalText);
         rlContent = (RelativeLayout) rootView.findViewById(R.id.rlContent);
         ivCategoryIcon = (ImageView) rootView.findViewById(R.id.ivCategoryIcon);
+        llFragmentPageBackground = (LinearLayout) rootView.findViewById(R.id.llfragmentpagebackground);
+
 
         ivPageImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,14 +89,28 @@ public class PageFragment extends Fragment {
         return rootView;
     }
 
-    public void setFragmentBackground() {
+    public void setFragmentBackgroundNightmode() {
         llFragmentPageBackground.setBackgroundColor(getResources().getColor(R.color.black));
     }
 
-    public void setFragmentTextHeadingColor() {
+    public void setFragmentTextColorNightmode() {
 
         tvNewsHead.setTextColor(getResources().getColor(R.color.list_item_title));
+        tvNewsDetails.setTextColor(getResources().getColor(R.color.list_item_title));
     }
+
+
+
+    public void setFragmentBackgroundDaymode() {
+        llFragmentPageBackground.setBackgroundColor(getResources().getColor(R.color.list_item_title));
+    }
+
+    public void setFragmentTextColorDaymode() {
+
+        tvNewsHead.setTextColor(getResources().getColor(R.color.black));
+        tvNewsDetails.setTextColor(getResources().getColor(R.color.black));
+    }
+
 
     public void setNews(int i) {
         final int j = i;
