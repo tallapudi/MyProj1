@@ -1,7 +1,10 @@
 package com.scienstechnologies.newsfeed.NewsPage;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -28,6 +31,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Date;
 import java.util.zip.Inflater;
 
 import volley.AppController;
@@ -79,8 +85,21 @@ public class PageFragment extends Fragment {
         ivPageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ShareActivity.class);
-                startActivity(i);
+                File imageFile  = takeScreenshot();
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                Uri screenshotUri = Uri.fromFile(imageFile);
+
+                Toast.makeText(getActivity(),imageFile.toString(),Toast.LENGTH_LONG).show();
+
+                sharingIntent.setType("*/*");
+
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
+                startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+
+//                Intent i = new Intent(getActivity(), ShareActivity.class);
+//                i.putExtra("pathToImage", pathToImage);
+//                startActivity(i);
             }
         });
 
@@ -88,6 +107,74 @@ public class PageFragment extends Fragment {
 
         return rootView;
     }
+
+
+    private File takeScreenshot() {
+
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+
+            // create bitmap screen capture
+            View v1 = getActivity().getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+            // image naming and path  to include sd card  appending name you choose for file
+
+            String pathToImage = Environment.getExternalStorageDirectory().getPath() + "/" + now + ".jpg";
+            File imageFile = new File(pathToImage);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            Toast.makeText(getActivity(), "Screenshot Saved",Toast.LENGTH_LONG).show();
+
+            openScreenshot(imageFile);
+
+            return imageFile;
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+
+
+            Toast.makeText(getActivity(), "Error saving image! Please check if SDCard is properly inserted",Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+
+
+
+
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = Uri.fromFile(imageFile);
+        intent.setDataAndType(uri, "image/*");
+        startActivity(intent);
+    }
+
+
+
+    private void shareImage(File file){
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, "Share Screenshot"));
+    }
+
 
     public void setFragmentBackgroundNightmode() {
         llFragmentPageBackground.setBackgroundColor(getResources().getColor(R.color.black));
@@ -112,10 +199,10 @@ public class PageFragment extends Fragment {
     }
 
 
-    public void setNews(int i) {
+    public void setNews(int i, String news_url) {
         final int j = i;
 
-        StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.GET, news_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, response);

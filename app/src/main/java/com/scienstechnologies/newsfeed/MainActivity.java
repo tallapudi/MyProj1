@@ -4,7 +4,10 @@ package com.scienstechnologies.newsfeed;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -37,7 +40,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,9 +55,8 @@ public class MainActivity extends AppCompatActivity {
      * The number of pages.
      */
 
-    private int num_pages=1;
+    private int num_pages = 1;
 
-    private int fragmentPosition;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
@@ -103,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         mTitle = mDrawerTitle = getTitle();
 
 
-        // load slide menu items
+        // load nav drawer items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
         // nav drawer icons from resources
@@ -139,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
         // What's hot, We  will add a counter here
         navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1), true, "50+"));
-
 
 
         // Recycle the typed array
@@ -202,12 +206,12 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_LONG).show();
 
                         Bundle bundle = new Bundle();
-                        bundle.putString("jsonData",response);
+                        bundle.putString("jsonData", response);
                         JSONArray jsonArray = object.getJSONArray("data");
                         num_pages = jsonArray.length();
                         myJsonString = response;
 
-                        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),bundle);
+                        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), bundle);
                         mViewPager.setAdapter(mPagerAdapter);
                         mPagerAdapter.notifyDataSetChanged();
 
@@ -224,13 +228,11 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Log.d(TAG, "" + error.getMessage() + "," + error.toString());
+                Toast.makeText(MainActivity.this,"Network Request Timeout!", Toast.LENGTH_LONG).show();
             }
         });
 
         AppController.getInstance().addToRequestQueue(sr);
-
-
-
 
 
     }
@@ -255,10 +257,18 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayView(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = null;
+
+        int index = mViewPager.getCurrentItem();
+        ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter) mViewPager.getAdapter();
+        PageFragment fragment = adapter.getFragment(index);
         switch (position) {
             case 0:
-                fragment = new PageFragment();
+                String news_url = "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/type/1";
+                fragment.setNews(position, news_url);
+                Bundle bundle = new Bundle();
+                bundle.putString("jsonData", news_url);
+
+
                 break;
             case 1:
                 fragment = new PageFragment();
@@ -281,15 +291,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            //fragmentManager.beginTransaction()
-            //         .replace(R.id.frame_container, fragment).commit();
 
+//            FragmentManager fragmentManager = getSupportFragmentManager();
+//            fragmentManager.beginTransaction()
+//                     .replace(R.id.frame_container, fragment).commit();
             // update selected item and title, then close the drawer
+
+            mViewPager.setAdapter(adapter);
+            mPagerAdapter.notifyDataSetChanged();
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
             setTitle(navMenuTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerList);
+
         } else {
             // error in creating fragment
             Log.e("MainActivity", "Error in creating fragment");
@@ -335,16 +349,15 @@ public class MainActivity extends AppCompatActivity {
 //                    CoordinatorLayout coordinatorLayout =(CoordinatorLayout) findViewById(R.id.coordinator_main);
 //                    coordinatorLayout.setBackgroundColor(getResources().getColor(R.color.list_item_title));
                     int index = mViewPager.getCurrentItem();
-                    ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter)mViewPager.getAdapter();
+                    ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter) mViewPager.getAdapter();
                     PageFragment fragment = adapter.getFragment(index);
                     fragment.setFragmentBackgroundDaymode();
                     fragment.setFragmentTextColorDaymode();
 
-
-                }else{
+                } else {
                     item.setChecked(true);
                     int index = mViewPager.getCurrentItem();
-                    ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter)mViewPager.getAdapter();
+                    ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter) mViewPager.getAdapter();
                     PageFragment fragment = adapter.getFragment(index);
                     fragment.setFragmentBackgroundNightmode();
                     fragment.setFragmentTextColorNightmode();
@@ -372,8 +385,6 @@ public class MainActivity extends AppCompatActivity {
 
         private final Bundle fragmentBundle;
 
-
-
         public ScreenSlidePagerAdapter(FragmentManager fm, Bundle data) {
             super(fm);
             fragmentBundle = data;
@@ -387,9 +398,8 @@ public class MainActivity extends AppCompatActivity {
             PageFragment pageFragment = new PageFragment();
             mPageReferenceMap.put(position, pageFragment);
             pageFragment.setArguments(this.fragmentBundle);
-            pageFragment.setNews(position);
-            fragmentPosition = position;
-
+            String news_url = "http://webservices.sgssiddaheal.com/newsfeed/news/";
+            pageFragment.setNews(position, news_url);
 
 
             return pageFragment;
@@ -399,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
 
             return num_pages;
-            
+
         }
 
         public PageFragment getFragment(int key) {
@@ -461,6 +471,45 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+
+    private void takeScreenshot() {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            openScreenshot(imageFile);
+        } catch (Throwable e) {
+            // Several error may come out with file handling or OOM
+            e.printStackTrace();
+        }
+    }
+
+    private void openScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri uri = Uri.fromFile(imageFile);
+        intent.setDataAndType(uri, "image/*");
+        startActivity(intent);
     }
 
 
