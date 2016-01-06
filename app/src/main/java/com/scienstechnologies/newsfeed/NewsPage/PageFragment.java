@@ -22,9 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
-import com.scienstechnologies.newsfeed.MainActivity;
 import com.scienstechnologies.newsfeed.R;
-import com.scienstechnologies.newsfeed.ShareActivity;
 import com.scienstechnologies.newsfeed.WebView.WebViewActivity;
 
 import org.json.JSONArray;
@@ -34,7 +32,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
-import java.util.zip.Inflater;
 
 import volley.AppController;
 
@@ -68,7 +65,6 @@ public class PageFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
 
-
         ImageView ivPageImage = (ImageView) rootView.findViewById(R.id.iv_page_image);
 
         tvNewsHead = (TextView) rootView.findViewById(R.id.tvNewsHead);
@@ -85,17 +81,24 @@ public class PageFragment extends Fragment {
         ivPageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File imageFile  = takeScreenshot();
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                Uri screenshotUri = Uri.fromFile(imageFile);
 
-                Toast.makeText(getActivity(),imageFile.toString(),Toast.LENGTH_LONG).show();
+                try{
 
-                sharingIntent.setType("*/*");
+                    File imageFile  = takeScreenshot();
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    Uri screenshotUri = Uri.fromFile(imageFile);
 
-                sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
-                startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                    Toast.makeText(getActivity(),imageFile.toString(),Toast.LENGTH_LONG).show();
+
+                    sharingIntent.setType("*/*");
+
+                    sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
+                    startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                }catch (Exception e){
+                    Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+                }
+
 
 //                Intent i = new Intent(getActivity(), ShareActivity.class);
 //                i.putExtra("pathToImage", pathToImage);
@@ -182,14 +185,14 @@ public class PageFragment extends Fragment {
 
     public void setFragmentTextColorNightmode() {
 
-        tvNewsHead.setTextColor(getResources().getColor(R.color.list_item_title));
-        tvNewsDetails.setTextColor(getResources().getColor(R.color.list_item_title));
+        tvNewsHead.setTextColor(getResources().getColor(R.color.white));
+        tvNewsDetails.setTextColor(getResources().getColor(R.color.white));
     }
 
 
 
     public void setFragmentBackgroundDaymode() {
-        llFragmentPageBackground.setBackgroundColor(getResources().getColor(R.color.list_item_title));
+        llFragmentPageBackground.setBackgroundColor(getResources().getColor(R.color.white));
     }
 
     public void setFragmentTextColorDaymode() {
