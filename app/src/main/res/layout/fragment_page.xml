@@ -1,31 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:id="@+id/llfragmentpagebackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00ffffff"
     android:orientation="vertical"
-    android:padding="4dp"
     android:weightSum="5.4"
-    tools:context="com.scienstechnologies.newsfeed.MainActivity"
-    tools:showIn="@layout/activity_main">
-    <!---->
+    tools:context="com.scienstechnologies.newsfeed.MainActivity">
+    <!--
+    tools:showIn="@layout/activity_main"-->
 
 
-    <ImageView
-
-        android:id="@+id/iv_page_image"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.5"
-        android:src="@drawable/silicon_slopes" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5">
+
+
+
+        <ImageView
+
+            android:id="@+id/iv_page_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/silicon_slopes"/>
+
+
+    </RelativeLayout>
+
+
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/llTotalText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"
+        android:layout_weight="1.4"
         android:orientation="vertical"
         android:weightSum="1">
 
@@ -39,64 +53,70 @@
                 android:id="@+id/tvNewsHead"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
-                android:text="Utah’s Unicorns, How “Silicon Slopes” is Gaining Momentum"
-                android:textSize="35sp"
-                android:textStyle="bold"
                 android:layout_toLeftOf="@+id/ivCategoryIcon"
-                android:layout_toStartOf="@+id/ivCategoryIcon" />
+                android:layout_toStartOf="@+id/ivCategoryIcon"
+                android:text="Utah’s Unicorns, How “Silicon Slopes” is Gaining Momentum"
+                android:textColor="#494949"
+                android:textSize="35sp"
+                android:textStyle="bold"/>
+
             <ImageView
                 android:id="@+id/ivCategoryIcon"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:src="@drawable/international_icon"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:paddingTop="5dp"
+                android:src="@drawable/international_icon"/>
 
         </RelativeLayout>
 
         <LinearLayout
-            android:padding="10dp"
-            android:layout_weight="0.4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_weight="0.4"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <TextView
-                android:textSize="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="By "/>
+                android:text="By "
+                android:textSize="12dp"/>
+
             <TextView
-                android:textSize="12dp"
                 android:id="@+id/tvAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
+                android:text="Jimmy Johnson"
                 android:textColor="#000"
-                android:text="Jimmy Johnson"/>
-            <TextView
                 android:textSize="12dp"
+                android:textStyle="bold"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=", "/>
+                android:text=", "
+                android:textSize="12dp"/>
+
             <TextView
-                android:textSize="12dp"
                 android:id="@+id/tvSource"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="London Times"/>
+                android:text="London Times"
+                android:textSize="12dp"/>
 
             <TextView
-                android:textSize="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=", "/>
+                android:text=", "
+                android:textSize="12dp"/>
+
             <TextView
-                android:textSize="12dp"
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sept 23, Friday"/>
+                android:text="Sept 23, Friday"
+                android:textSize="12dp"/>
         </LinearLayout>
 
 
@@ -105,8 +125,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
+            android:textColor="#494949"
             android:text="@string/news_details"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
     </LinearLayout>
 
     <LinearLayout

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.scienstechnologies.newsfeed"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.scienstechnologies.newsfeed"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -27,8 +28,12 @@
         </activity>
         <activity
             android:name=".ShareActivity"
-            android:theme="@style/Theme.Transparent"></activity>
-        <activity android:name=".WebView.WebViewActivity"></activity>
+            android:theme="@style/Theme.Transparent"/>
+        <activity android:name=".WebView.WebViewActivity"/>
+        <activity
+            android:name=".Menu.MenuActivity"
+            android:theme="@style/Theme.AppCompat.Translucent">
+        </activity>
     </application>
 
 </manifest>

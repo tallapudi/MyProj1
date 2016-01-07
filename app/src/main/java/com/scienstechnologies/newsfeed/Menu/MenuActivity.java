@@ -1,5 +1,6 @@
 package com.scienstechnologies.newsfeed.Menu;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.os.Bundle;
 import com.scienstechnologies.newsfeed.Menu.slidingtab.SlidingTabLayout;
 import com.scienstechnologies.newsfeed.R;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends FragmentActivity {
 
 
     ViewPager pager;
@@ -37,7 +38,5 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         mSlidingTabLayout.setViewPager(pager);
-
-
     }
 }

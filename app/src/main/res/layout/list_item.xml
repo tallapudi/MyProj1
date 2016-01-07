@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="80dp"
+                android:background="@color/transparent_full"
+                android:layout_height="80dp">
+
+
+    <!--Icon-->
+    <ImageView
+
+        android:id="@+id/ivCategoryIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/all_news_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!--Category Name-->
+    <TextView
+        android:id="@+id/tvCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:paddingLeft="8dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/text_color"
+        android:text="All News"
+        android:textSize="20dp"
+        android:layout_toRightOf="@+id/ivCategoryIcon"
+        android:layout_centerInParent="true"
+        android:gravity="center"/>
+
+
+
+
+</RelativeLayout>

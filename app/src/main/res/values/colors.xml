@@ -3,10 +3,14 @@
     <color name="colorPrimary">#00ADD7</color>
     <color name="colorPrimaryDark">#008cae</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="transparent">#bdffffff</color>
+    <color name="transparent">#3dffffff</color>
+
+    <color name="transparent_full">#00ffffff</color>
 
 
+    <color name="tabsScrollColor">#2097ff</color>
     <color name="white">#fff</color>
+    <color name="text_color">#828A89</color>
     <color name="list_background">#303030</color>
     <color name="list_background_pressed">#ff4383</color>
     <color name="list_divider">#272727</color>
@@ -14,8 +18,9 @@
     <color name="counter_text_color">#c5c4c4</color>
     <color name="black">#000</color>
     <color name="selector">#fff</color>
-    <color name="list_row_start_color">#ffffff</color>
-    <color name="list_row_end_color">#ffffff</color>
+    <color name="transparent_color">#f3ffffff</color>
+    <color name="list_row_start_color">#3dffffff</color>
+    <color name="list_row_end_color">#3dffffff</color>
     <color name="list_row_hover_start_color">#ebeef0</color>
     <color name="list_row_hover_end_color">#1c9ef4</color>
 

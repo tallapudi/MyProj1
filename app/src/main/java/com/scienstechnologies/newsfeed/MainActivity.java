@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,8 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
-import com.scienstechnologies.newsfeed.NavigationDrawer.NavDrawerItem;
-import com.scienstechnologies.newsfeed.NavigationDrawer.adapter.NavDrawerListAdapter;
+import com.scienstechnologies.newsfeed.Menu.MenuActivity;
 import com.scienstechnologies.newsfeed.NewsPage.PageFragment;
 
 import org.json.JSONArray;
@@ -71,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
     private PagerAdapter mPagerAdapter;
 
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mTitle;
     private CharSequence mDrawerTitle;
@@ -81,13 +78,11 @@ public class MainActivity extends AppCompatActivity {
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
 
-
-    private ArrayList<NavDrawerItem> navDrawerItems;
-    private NavDrawerListAdapter adapter;
-
     public Map<Integer, PageFragment> mPageReferenceMap = new HashMap<Integer, PageFragment>();
-
     public static String myJsonString;
+
+    ImageView ivRefreshIcon;
+    ImageView ivMenuIcon;
 
 
     // Doctors json url
@@ -98,92 +93,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_drawer);
-        setSupportActionBar(toolbar);
+
+
 
         //instantiate a viewpager and a pageradapter
         mViewPager = (ViewPager) findViewById(R.id.pager);
 
-        mTitle = mDrawerTitle = getTitle();
+        ivMenuIcon = (ImageView) findViewById(R.id.ivMenu);
+        ivRefreshIcon = (ImageView) findViewById(R.id.ivRefresh);
 
-
-        // load nav drawer items
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-
-        // nav drawer icons from resources
-        navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-        navDrawerItems = new ArrayList<>();
-
-        // adding nav drawer items to array
-        // Home
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        // Find People
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        // Photos
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        // Communities, Will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
-        // Pages
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-
-        // What's hot, We  will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
-
-        // What's hot, We  will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1), true, "50+"));
-
-        // What's hot, We  will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1), true, "50+"));
-
-        // What's hot, We  will add a counter here
-        navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1), true, "50+"));
-
-
-        // Recycle the typed array
-        navMenuIcons.recycle();
-
-        // setting the nav drawer list adapter
-        adapter = new NavDrawerListAdapter(getApplicationContext(),
-                navDrawerItems);
-        mDrawerList.setAdapter(adapter);
-
-        // enabling action bar app icon and behaving it as toggle button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.drawable.ic_drawer, //nav menu toggle icon
-                R.string.drawer_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
-        ) {
-            public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitle);
-                // calling onPrepareOptionsMenu() to show action bar icons
-                invalidateOptionsMenu();
+        ivMenuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MenuActivity.class);
+                startActivity(i);
             }
-
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
-                // calling onPrepareOptionsMenu() to hide action bar icons
-                invalidateOptionsMenu();
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        if (savedInstanceState == null) {
-//            // on first time display view for first nav item
-//            displayView(0);
-        }
-
-
-        Log.d(TAG, "Before Response");
+        });
 
 
         StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -260,56 +185,8 @@ public class MainActivity extends AppCompatActivity {
 
         int index = mViewPager.getCurrentItem();
         ScreenSlidePagerAdapter adapter = (ScreenSlidePagerAdapter) mViewPager.getAdapter();
-        PageFragment fragment = adapter.getFragment(index);
-        switch (position) {
-            case 0:
-                String news_url = "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/type/1";
-                fragment.setNews(position, news_url);
-                Bundle bundle = new Bundle();
-                bundle.putString("jsonData", news_url);
 
-
-                break;
-            case 1:
-                fragment = new PageFragment();
-                break;
-            case 2:
-                fragment = new PageFragment();
-                break;
-            case 3:
-                fragment = new PageFragment();
-                break;
-            case 4:
-                fragment = new PageFragment();
-                break;
-            case 5:
-                fragment = new PageFragment();
-                break;
-
-            default:
-                break;
-        }
-
-        if (fragment != null) {
-
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            fragmentManager.beginTransaction()
-//                     .replace(R.id.frame_container, fragment).commit();
-            // update selected item and title, then close the drawer
-
-            mViewPager.setAdapter(adapter);
-            mPagerAdapter.notifyDataSetChanged();
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
-
-        } else {
-            // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
-        }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -324,18 +201,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-
-        //toggle nav Drawer on selecting actionbar app icon/title
-
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        //Toggle Checkable mode
-//        if(item.isCheckable()) {
-//                item.setChecked(!item.isChecked());
-//        }
-//
 
 
         switch (item.getItemId()) {
@@ -372,9 +237,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean toggleNightMode() {
-        return true;
-    }
+
+
 
 
     /**
@@ -441,10 +305,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_bar_notification).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_nightmode).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -462,15 +322,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggls
-        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
 
@@ -496,21 +352,12 @@ public class MainActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
             outputStream.flush();
             outputStream.close();
-
-            openScreenshot(imageFile);
         } catch (Throwable e) {
             // Several error may come out with file handling or OOM
             e.printStackTrace();
         }
     }
 
-    private void openScreenshot(File imageFile) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        Uri uri = Uri.fromFile(imageFile);
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
-    }
 
 
 }

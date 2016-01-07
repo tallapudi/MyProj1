@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.scienstechnologies.newsfeed.Menu.Category;
+import com.scienstechnologies.newsfeed.Menu.slidingtab.CategoryListAdapter;
 import com.scienstechnologies.newsfeed.R;
 import com.scienstechnologies.newsfeed.WebView.WebViewActivity;
 
@@ -31,7 +34,9 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import volley.AppController;
 
