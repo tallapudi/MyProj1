@@ -1,16 +1,17 @@
-package com.scienstechnologies.newsfeed.Menu.slidingtab;
+package com.scienstechnologies.newsfeed.Menu;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.scienstechnologies.newsfeed.Menu.Category;
+import com.scienstechnologies.newsfeed.Menu.CategoryListAdapter;
+import com.scienstechnologies.newsfeed.Menu.CategoryModel;
 import com.scienstechnologies.newsfeed.R;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class MenuFragment extends Fragment {
 
-    private List<Category> mCategoryList = new ArrayList<>();
+    private List<CategoryModel> mCategoryList = new ArrayList<>();
     private CategoryListAdapter mCategoryListAdapter;
 
     private ListView mListView;
@@ -56,35 +57,64 @@ public class MenuFragment extends Fragment {
 
         if(mCategoryList.isEmpty()){
             for (int i = 0; i < 7; i++) {
-                Category category = new Category();
-                category.setCategoryName(mCategories[i]);
-                category.setIcon(mIcons[i]);
+                CategoryModel categoryModel = new CategoryModel();
+                categoryModel.setCategoryName(mCategories[i]);
+                categoryModel.setIcon(mIcons[i]);
 
-                mCategoryList.add(category);
+                mCategoryList.add(categoryModel);
             }
-
-            Category category = new Category();
-
-            category.setCategoryName("+More");
-            mCategoryList.add(category);
+            CategoryModel categoryModel = new CategoryModel();
+            categoryModel.setCategoryName("+More");
+            mCategoryList.add(categoryModel);
 
             //Open a new activity when a list item from android custom listview is clicked.
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                    SharedPreferences urlPref = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor= urlPref.edit();
                     if (position == 7) {
                         mCategoryList.clear();
 
 
                         for (int i = 0; i < mCategories.length; i++) {
-                            Category category = new Category();
-                            category.setCategoryName(mCategories[i]);
-                            category.setIcon(mIcons[i]);
-
-                            mCategoryList.add(category);
+                            CategoryModel categoryModel = new CategoryModel();
+                            categoryModel.setCategoryName(mCategories[i]);
+                            categoryModel.setIcon(mIcons[i]);
+                            mCategoryList.add(categoryModel);
                         }
+
+
+                        editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/1");
                         mCategoryListAdapter.notifyDataSetChanged();
+                    }
+                    else{
+
+                        switch(Integer.valueOf(position)){
+                            case 1:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/1");
+                                getActivity().finish();
+                                break;
+                            case 2:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/2");
+                                getActivity().finish();
+                                break;
+
+                            case 3:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/3");
+                                getActivity().finish();
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;
+                            case 6:
+                                break;
+                            default:
+
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/type/1");
+                        }
                     }
 
                 }

@@ -1,6 +1,8 @@
 package com.scienstechnologies.newsfeed.NewsPage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,8 +24,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
-import com.scienstechnologies.newsfeed.Menu.Category;
-import com.scienstechnologies.newsfeed.Menu.slidingtab.CategoryListAdapter;
 import com.scienstechnologies.newsfeed.R;
 import com.scienstechnologies.newsfeed.WebView.WebViewActivity;
 
@@ -34,9 +33,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import volley.AppController;
 
@@ -81,6 +78,20 @@ public class PageFragment extends Fragment {
         rlContent = (RelativeLayout) rootView.findViewById(R.id.rlContent);
         ivCategoryIcon = (ImageView) rootView.findViewById(R.id.ivCategoryIcon);
         llFragmentPageBackground = (LinearLayout) rootView.findViewById(R.id.llfragmentpagebackground);
+
+
+
+        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("NightMode", Context.MODE_PRIVATE);
+        Boolean nightMode = sharedPrefs.getBoolean("nightmode", true);
+
+        if(nightMode == true){
+            setFragmentTextColorNightmode();
+            setFragmentBackgroundNightmode();
+        }
+        else{
+            setFragmentTextColorDaymode();
+            setFragmentBackgroundDaymode();
+        }
 
 
         ivPageImage.setOnClickListener(new View.OnClickListener() {

@@ -1,13 +1,16 @@
 package com.scienstechnologies.newsfeed;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -34,6 +37,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.scienstechnologies.newsfeed.Menu.MenuActivity;
+import com.scienstechnologies.newsfeed.Menu.SettingsFragment;
 import com.scienstechnologies.newsfeed.NewsPage.PageFragment;
 
 import org.json.JSONArray;
@@ -85,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivMenuIcon;
 
 
-    // Doctors json url
-    private static final String url = "http://webservices.sgssiddaheal.com/newsfeed/news/";
 
 
     @Override
@@ -105,59 +107,25 @@ public class MainActivity extends AppCompatActivity {
         ivMenuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent i = new Intent(MainActivity.this, MenuActivity.class);
                 startActivity(i);
             }
         });
 
 
-        StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, response);
-                myJsonString = response;
-                Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG);
-
-                try {
-                    JSONObject object = new JSONObject(response);
-                    Intent i = new Intent();
-
-                    String message = object.getString("message");
-                    Log.d(TAG, message);
-                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                    String status = object.getString("status");
-
-                    if (status.equals("success")) {
-                        Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_LONG).show();
-
-                        Bundle bundle = new Bundle();
-                        bundle.putString("jsonData", response);
-                        JSONArray jsonArray = object.getJSONArray("data");
-                        num_pages = jsonArray.length();
-                        myJsonString = response;
-
-                        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), bundle);
-                        mViewPager.setAdapter(mPagerAdapter);
-                        mPagerAdapter.notifyDataSetChanged();
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
 
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Log.d(TAG, "" + error.getMessage() + "," + error.toString());
-                Toast.makeText(MainActivity.this,"Network Request Timeout!", Toast.LENGTH_LONG).show();
-            }
-        });
 
-        AppController.getInstance().addToRequestQueue(sr);
+
+
+
+
+
+
+
+
 
 
     }
@@ -210,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_nightmode:
                 if (item.isChecked()) {
 
-                    item.setChecked(!item.isChecked());
+                    item.setChecked(false);
 //                    CoordinatorLayout coordinatorLayout =(CoordinatorLayout) findViewById(R.id.coordinator_main);
 //                    coordinatorLayout.setBackgroundColor(getResources().getColor(R.color.list_item_title));
                     int index = mViewPager.getCurrentItem();
@@ -236,9 +204,6 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 
 
     /**
@@ -358,6 +323,82 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
 
+        SharedPreferences urlPref = getSharedPreferences("urlPref", Context.MODE_PRIVATE);
+
+        String myUrl = urlPref.getString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/");
+
+        // Doctors json url
+        String url = "http://webservices.sgssiddaheal.com/newsfeed/news/";
+
+        if(myUrl!=null){
+            url = myUrl;
+        }
+
+
+
+        StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, response);
+                myJsonString = response;
+                Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG);
+
+                try {
+                    JSONObject object = new JSONObject(response);
+                    Intent i = new Intent();
+
+                    String message = object.getString("message");
+                    Log.d(TAG, message);
+                    Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    String status = object.getString("status");
+
+                    if (status.equals("success")) {
+                        Toast.makeText(MainActivity.this, "Success!", Toast.LENGTH_LONG).show();
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("jsonData", response);
+                        JSONArray jsonArray = object.getJSONArray("data");
+                        num_pages = jsonArray.length();
+                        myJsonString = response;
+
+                        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), bundle);
+                        mViewPager.setAdapter(mPagerAdapter);
+
+                        SettingsFragment settingsFragment = new SettingsFragment();
+                        mPagerAdapter.notifyDataSetChanged();
+
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Log.d(TAG, "" + error.getMessage() + "," + error.toString());
+                Toast.makeText(MainActivity.this,"Network Request Timeout!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        AppController.getInstance().addToRequestQueue(sr);
+
+
+
+
+
+
+
+
+
+    }
 }

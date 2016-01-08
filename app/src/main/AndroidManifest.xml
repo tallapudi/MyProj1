@@ -23,7 +23,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <categoryModel android:name="android.intent.categoryModel.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity

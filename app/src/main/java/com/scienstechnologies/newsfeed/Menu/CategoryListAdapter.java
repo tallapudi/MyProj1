@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.Menu.slidingtab;
+package com.scienstechnologies.newsfeed.Menu;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
-import com.scienstechnologies.newsfeed.Menu.Category;
 import com.scienstechnologies.newsfeed.R;
 
 import java.util.List;
@@ -20,24 +20,23 @@ import java.util.List;
 public class CategoryListAdapter extends BaseAdapter{
 
     private Activity mActivity;
-    private List<Category> categoryList;
+    private List<CategoryModel> mCategoryList;
     private LayoutInflater mInflater;
 
-
-    public CategoryListAdapter(Activity mActivity, List<Category> categoryList){
+    public CategoryListAdapter(Activity mActivity, List<CategoryModel> mCategoryList){
         this.mActivity = mActivity;
-        this.categoryList = categoryList;
+        this.mCategoryList = mCategoryList;
     }
 
 
     @Override
     public int getCount() {
-        return categoryList.size();
+        return mCategoryList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return categoryList.get(position);
+        return mCategoryList.get(position);
     }
 
     @Override
@@ -51,14 +50,18 @@ public class CategoryListAdapter extends BaseAdapter{
         if(mInflater == null){
             mInflater = (LayoutInflater)mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }if(convertView == null){
-        convertView = mInflater.inflate(R.layout.list_item, null);
+        convertView = mInflater.inflate(R.layout.list_item_menu, null);
     }
         ImageView ivCategoryIcon = (ImageView) convertView.findViewById(R.id.ivCategoryIcon);
         TextView tvCategoryName = (TextView) convertView.findViewById(R.id.tvCategoryName);
 
-        Category category = categoryList.get(position);
-        ivCategoryIcon.setImageResource(category.getIcon());
-        tvCategoryName.setText(category.getCategoryName());
+        CategoryModel categoryModel = mCategoryList.get(position);
+        ivCategoryIcon.setImageResource(categoryModel.getIcon());
+        tvCategoryName.setText(categoryModel.getCategoryName());
+        if(categoryModel.isSwitchPresent()==true){
+            Switch switch1 = (Switch) convertView.findViewById(R.id.switch1);
+            switch1.setChecked(categoryModel.isSwitchValue());
+        }
         return convertView;
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="80dp"
-                android:background="@color/transparent_full"
                 android:layout_height="80dp">
 
 
@@ -11,11 +10,10 @@
         android:id="@+id/ivCategoryIcon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/all_news_icon"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <!--Category Name-->
+    <!--CategoryModel Name-->
     <TextView
         android:id="@+id/tvCategoryName"
         android:layout_width="wrap_content"
@@ -29,8 +27,5 @@
         android:layout_toRightOf="@+id/ivCategoryIcon"
         android:layout_centerInParent="true"
         android:gravity="center"/>
-
-
-
 
 </RelativeLayout>

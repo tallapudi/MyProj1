@@ -4,20 +4,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.scienstechnologies.newsfeed.Menu.slidingtab.MenuFragment;
 import com.scienstechnologies.newsfeed.NewsPage.PageFragment;
 
 /**
  * Created by vamsitallapudi on 05-Jan-16.
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class MenuTabAdapter extends FragmentStatePagerAdapter {
 
 
     CharSequence Titles[];
     int NumOfTabs;
 
 
-    public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabs){
+    public MenuTabAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabs){
         super(fm);
         this.Titles = mTitles;
         this.NumOfTabs = mNumbOfTabs;
@@ -32,7 +31,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             return new MenuFragment();
         }
         else {
-            return new PageFragment();
+            return new MySettingsFragment();
         }
     }
 

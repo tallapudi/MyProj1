@@ -2,7 +2,6 @@ package com.scienstechnologies.newsfeed.Menu;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.scienstechnologies.newsfeed.Menu.slidingtab.SlidingTabLayout;
@@ -12,7 +11,7 @@ public class MenuActivity extends FragmentActivity {
 
 
     ViewPager pager;
-    ViewPagerAdapter adapter;
+    MenuTabAdapter adapter;
     SlidingTabLayout mSlidingTabLayout;
     CharSequence Titles[] = {"Menu", "Settings"};
     int NumOfTabs= 2;
@@ -22,17 +21,16 @@ public class MenuActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(),Titles,NumOfTabs);
+        adapter = new MenuTabAdapter(getSupportFragmentManager(),Titles,NumOfTabs);
 
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
-
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
         mSlidingTabLayout.setDistributeEvenly(true);
 
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
-            public int getIndicatorColor(int position) {
+            public int getIndicatorColor(int position){
                 return getResources().getColor(R.color.white);
             }
         });
