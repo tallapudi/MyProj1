@@ -9,7 +9,7 @@
         android:id="@+id/icon_refresh"
         android:orderInCategory="99"
         app:showAsAction="always"
-        android:icon="@drawable/refresh_icon"/>
+        android:icon="@drawable/ic_refresh"/>
 
     <item
         android:id="@+id/action_bar_notification"

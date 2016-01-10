@@ -5,14 +5,19 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
 import com.scienstechnologies.newsfeed.R;
 
 public class WebViewActivity extends AppCompatActivity {
 
     private WebView webView;
+
+    ImageView ivClose;
 
 
 
@@ -25,7 +30,32 @@ public class WebViewActivity extends AppCompatActivity {
 
         webView.loadUrl( getIntent().getStringExtra("link"));
         webView.setWebViewClient(new MyWebViewClient());
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
+//        webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        ivClose = (ImageView) findViewById(R.id.ivClose);
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        webView.onPause();
+    }
+
 
     private class MyWebViewClient extends WebViewClient {
         @Override
@@ -36,6 +66,7 @@ public class WebViewActivity extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
+            webView.setWebChromeClient(new WebChromeClient());
             webView.loadUrl(url);
             return true;
 

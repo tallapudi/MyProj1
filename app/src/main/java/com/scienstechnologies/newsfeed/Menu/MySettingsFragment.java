@@ -28,7 +28,7 @@ public class MySettingsFragment extends Fragment {
         Switch sNightMode = (Switch) v.findViewById(R.id.sNightMode);
 
         SharedPreferences sharedPrefs = getActivity().getSharedPreferences("NightMode", Context.MODE_PRIVATE);
-        sNightMode.setChecked(sharedPrefs.getBoolean("nightmode", true));
+        sNightMode.setChecked(sharedPrefs.getBoolean("nightmode", false));
 
         sNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -39,14 +39,14 @@ public class MySettingsFragment extends Fragment {
         sNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    SharedPreferences sharedPref = getActivity().getSharedPreferences("NightMode",Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
+
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("NightMode", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                if (isChecked) {
+
                     editor.putBoolean("nightmode", true);
                     editor.commit();
-                }else {
-                    SharedPreferences sharedPref = getActivity().getSharedPreferences("NightMode",Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
+                } else {
                     editor.putBoolean("nightmode", false);
                     editor.commit();
                 }

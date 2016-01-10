@@ -24,6 +24,7 @@ public class ShareActivity extends Activity {
         ImageView ivEmail = (ImageView) findViewById(R.id.ivEmail);
         ImageView ivBookmark = (ImageView) findViewById(R.id.ivBookmark);
         ImageView ivCopy = (ImageView) findViewById(R.id.ivCopy);
+        ImageView ivClose = (ImageView) findViewById(R.id.ivClose);
 
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +40,13 @@ public class ShareActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

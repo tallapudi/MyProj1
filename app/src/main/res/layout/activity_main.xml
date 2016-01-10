@@ -24,27 +24,27 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        tools:background = "#000000"
         android:layout_height="wrap_content">
 
 
 
         <ImageView
             android:id="@+id/ivRefresh"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/refresh_icon"/>
-
-        <ImageView
-            android:id="@+id/ivMenu"
-            android:padding="10dp"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_refresh"/>
+
+        <ImageView
+            android:id="@+id/ivMenu"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_menu_white_24dp"/>
 

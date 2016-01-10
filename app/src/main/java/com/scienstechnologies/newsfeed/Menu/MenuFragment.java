@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.scienstechnologies.newsfeed.Menu.CategoryListAdapter;
 import com.scienstechnologies.newsfeed.Menu.CategoryModel;
@@ -72,8 +73,7 @@ public class MenuFragment extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    SharedPreferences urlPref = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor= urlPref.edit();
+
                     if (position == 7) {
                         mCategoryList.clear();
 
@@ -85,24 +85,32 @@ public class MenuFragment extends Fragment {
                             mCategoryList.add(categoryModel);
                         }
 
-
-                        editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/1");
+                        SharedPreferences urlPref = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor= urlPref.edit();
+                        editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/1");
+                        editor.commit();
                         mCategoryListAdapter.notifyDataSetChanged();
                     }
                     else{
 
+                        SharedPreferences urlPref = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor= urlPref.edit();
                         switch(Integer.valueOf(position)){
                             case 1:
-                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/1");
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/1");
+                                editor.commit();
                                 getActivity().finish();
                                 break;
                             case 2:
-                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/2");
+
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/2");
+                                editor.commit();
                                 getActivity().finish();
                                 break;
 
                             case 3:
-                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/3");
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/3");
+                                editor.commit();
                                 getActivity().finish();
                                 break;
                             case 4:
@@ -113,14 +121,21 @@ public class MenuFragment extends Fragment {
                                 break;
                             default:
 
-                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/type/1");
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/");
+                                editor.commit();
                         }
                     }
 
+                    SharedPreferences sharedpreferences = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
+                    String myUrlString = sharedpreferences.getString("url","Shared Pref Not Stored");
                 }
             });
 
         }
+
+
+
+
 
 
 

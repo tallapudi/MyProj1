@@ -25,7 +25,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.scienstechnologies.newsfeed.R;
+import com.scienstechnologies.newsfeed.ShareActivity;
 import com.scienstechnologies.newsfeed.WebView.WebViewActivity;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,7 +57,8 @@ public class PageFragment extends Fragment {
     LinearLayout llTotalText;
     RelativeLayout rlContent;
     ImageView ivCategoryIcon;
-
+    ImageView ivPageImage;
+    ImageView ivPlay;
     // Doctors json url
     private static final String url = "http://webservices.sgssiddaheal.com/newsfeed/news/";
 
@@ -67,7 +70,8 @@ public class PageFragment extends Fragment {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
 
-        ImageView ivPageImage = (ImageView) rootView.findViewById(R.id.iv_page_image);
+       ivPageImage  = (ImageView) rootView.findViewById(R.id.iv_page_image);
+        ivPlay = (ImageView) rootView.findViewById(R.id.ivPlay);
 
         tvNewsHead = (TextView) rootView.findViewById(R.id.tvNewsHead);
         tvNewsDetails = (TextView) rootView.findViewById(R.id.tvNewsDetails);
@@ -81,44 +85,45 @@ public class PageFragment extends Fragment {
 
 
 
-        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("NightMode", Context.MODE_PRIVATE);
-        Boolean nightMode = sharedPrefs.getBoolean("nightmode", true);
-
-        if(nightMode == true){
-            setFragmentTextColorNightmode();
-            setFragmentBackgroundNightmode();
-        }
-        else{
-            setFragmentTextColorDaymode();
-            setFragmentBackgroundDaymode();
-        }
-
 
         ivPageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 try{
+                    try{
 
-                    File imageFile  = takeScreenshot();
-                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                    Uri screenshotUri = Uri.fromFile(imageFile);
+                        File imageFile  = takeScreenshot();
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        Uri screenshotUri = Uri.fromFile(imageFile);
 
-                    Toast.makeText(getActivity(),imageFile.toString(),Toast.LENGTH_LONG).show();
+                        sharingIntent.setType("*/*");
 
-                    sharingIntent.setType("*/*");
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
 
-                    sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
-                    startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                        Toast.makeText(getActivity(),imageFile.toString(),Toast.LENGTH_LONG).show();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+
+//                    startActivity(sharingIntent);
+//                    startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+
+                    Intent i = new Intent(getActivity(), ShareActivity.class);
+                    i.setType("*/*");
+//                    i.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+//                    i.putExtra("pathToImage", screenshotUri);
+
+                    i.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
+                    startActivity(i);
+
                 }catch (Exception e){
                     Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
                 }
 
 
-//                Intent i = new Intent(getActivity(), ShareActivity.class);
-//                i.putExtra("pathToImage", pathToImage);
-//                startActivity(i);
             }
         });
 
@@ -153,8 +158,6 @@ public class PageFragment extends Fragment {
 
             Toast.makeText(getActivity(), "Screenshot Saved",Toast.LENGTH_LONG).show();
 
-            openScreenshot(imageFile);
-
             return imageFile;
 
         } catch (Throwable e) {
@@ -170,7 +173,25 @@ public class PageFragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+
+        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("NightMode", Context.MODE_PRIVATE);
+        Boolean nightMode = sharedPrefs.getBoolean("nightmode", true);
+
+        if(nightMode == true){
+            setFragmentTextColorNightmode();
+            setFragmentBackgroundNightmode();
+        }
+        else{
+            setFragmentTextColorDaymode();
+            setFragmentBackgroundDaymode();
+        }
+
+
+    }
 
     private void openScreenshot(File imageFile) {
         Intent intent = new Intent();
@@ -243,8 +264,15 @@ public class PageFragment extends Fragment {
                         tvAuthor.setText(jsonObject.getString("author"));
                         tvSource.setText(jsonObject.getString("source"));
                         tvDate.setText(jsonObject.getString("days"));
+                        Picasso.with(getContext()).load("http://www.sgssiddaheal.com/sciens_dashboard/"+ jsonObject.getString("image_path")).into(ivPageImage);
+
+                        if(jsonObject.getString("video_link").length()==0){
+                            ivPlay.setVisibility(View.GONE);
+                        }
+
 
                         final String sourceLink = jsonObject.getString("source_link");
+                        final String videoLink = jsonObject.getString("video_link");
 
                         llTotalText.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -258,6 +286,20 @@ public class PageFragment extends Fragment {
 
                             }
                         });
+
+
+
+                        ivPlay.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Intent i = new Intent(getActivity(),WebViewActivity.class);
+                                i.putExtra("link",videoLink);
+                                startActivity(i);
+
+                            }
+                        });
+
 
                         switch (Integer.parseInt(jsonObject.getString("category"))) {
                             case 1:
