@@ -29,11 +29,9 @@ public class MenuFragment extends Fragment {
     private ListView mListView;
 
     String[] mCategories = new String[]{
-            "Bookmarked", "All News", "Top", "National",
+            "Bookmarked", "All", "Top", "National",
             "International", "Politics", "Business", "Sports",
-            "Entertainment", "Technology", "Travel", "Health",
-            "Food", "Fashion", "Education", "Viral",
-            "Daily Quote", "Daily Titbit", "Event of the day", "Horoscope",
+            "Entertainment", "Daily Quotes", "Event of the day", "Daily Titbit",
             "Personalization"
     };
 
@@ -87,7 +85,7 @@ public class MenuFragment extends Fragment {
 
                         SharedPreferences urlPref = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor= urlPref.edit();
-                        editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/1");
+                        editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/");
                         editor.commit();
                         mCategoryListAdapter.notifyDataSetChanged();
                     }
@@ -96,6 +94,13 @@ public class MenuFragment extends Fragment {
                         SharedPreferences urlPref = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor= urlPref.edit();
                         switch(Integer.valueOf(position)){
+
+                            case 0:
+                                editor.putString("url","http://webservices.sgssiddaheal.com/newsfeed/news/");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+
                             case 1:
                                 editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/1");
                                 editor.commit();
@@ -123,6 +128,7 @@ public class MenuFragment extends Fragment {
 
                                 editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/newsfeed/news/");
                                 editor.commit();
+                                getActivity().finish();
                         }
                     }
 

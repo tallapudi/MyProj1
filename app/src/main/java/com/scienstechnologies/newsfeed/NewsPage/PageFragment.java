@@ -1,5 +1,6 @@
 package com.scienstechnologies.newsfeed.NewsPage;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,6 +55,7 @@ public class PageFragment extends Fragment {
     TextView tvAuthor;
     TextView tvSource;
     TextView tvDate;
+    private ProgressDialog mProgressDialog;
     LinearLayout llTotalText;
     RelativeLayout rlContent;
     ImageView ivCategoryIcon;
@@ -69,6 +71,11 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
+
+
+        mProgressDialog = new ProgressDialog(getContext());
+        mProgressDialog.setMessage("Loading..");
+        mProgressDialog.show();
 
        ivPageImage  = (ImageView) rootView.findViewById(R.id.iv_page_image);
         ivPlay = (ImageView) rootView.findViewById(R.id.ivPlay);
@@ -103,9 +110,7 @@ public class PageFragment extends Fragment {
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
 
                         Toast.makeText(getActivity(),imageFile.toString(),Toast.LENGTH_LONG).show();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
 
 
 //                    startActivity(sharingIntent);
@@ -117,7 +122,12 @@ public class PageFragment extends Fragment {
 //                    i.putExtra("pathToImage", screenshotUri);
 
                     i.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
+                        i.putExtra("screenshot", screenshotUri);
                     startActivity(i);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                 }catch (Exception e){
                     Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
@@ -126,8 +136,6 @@ public class PageFragment extends Fragment {
 
             }
         });
-
-
 
         return rootView;
     }
@@ -179,7 +187,7 @@ public class PageFragment extends Fragment {
 
 
         SharedPreferences sharedPrefs = getActivity().getSharedPreferences("NightMode", Context.MODE_PRIVATE);
-        Boolean nightMode = sharedPrefs.getBoolean("nightmode", true);
+        Boolean nightMode = sharedPrefs.getBoolean("nightmode", false);
 
         if(nightMode == true){
             setFragmentTextColorNightmode();
@@ -247,6 +255,8 @@ public class PageFragment extends Fragment {
             public void onResponse(String response) {
                 Log.d(TAG, response);
 
+                hidePDialog();
+
                 try {
 
                     final Bundle args = getArguments();
@@ -264,7 +274,7 @@ public class PageFragment extends Fragment {
                         tvAuthor.setText(jsonObject.getString("author"));
                         tvSource.setText(jsonObject.getString("source"));
                         tvDate.setText(jsonObject.getString("days"));
-                        Picasso.with(getContext()).load("http://www.sgssiddaheal.com/sciens_dashboard/"+ jsonObject.getString("image_path")).into(ivPageImage);
+                        Picasso.with(getActivity()).load("http://www.sgssiddaheal.com/sciens_dashboard/"+ jsonObject.getString("image_path")).into(ivPageImage);
 
                         if(jsonObject.getString("video_link").length()==0){
                             ivPlay.setVisibility(View.GONE);
@@ -348,6 +358,7 @@ public class PageFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Log.d(TAG, "" + error.getMessage() + "," + error.toString());
+                hidePDialog();
             }
         });
 
@@ -355,5 +366,16 @@ public class PageFragment extends Fragment {
 
 
     }
+
+    private void hidePDialog() {
+
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+
+
 
 }
