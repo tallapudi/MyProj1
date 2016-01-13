@@ -1,12 +1,14 @@
 package com.scienstechnologies.newsfeed;
 
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -68,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     private PagerAdapter mPagerAdapter;
 
 
-
     private CharSequence mTitle;
     private CharSequence mDrawerTitle;
 
@@ -82,13 +85,16 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivMenuIcon;
 
 
-
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
 
 
         //instantiate a viewpager and a pageradapter
@@ -105,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         ivRefreshIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,19 +121,13 @@ public class MainActivity extends AppCompatActivity {
 
                 callDataFromNetwork(url);
 
-
             }
         });
-
-
 
 
         SharedPreferences urlPref = getSharedPreferences("urlPref", Context.MODE_PRIVATE);
 
         String url = urlPref.getString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/");
-
-
-
 
 
         StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -171,22 +170,11 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Log.d(TAG, "" + error.getMessage() + "," + error.toString());
-                Toast.makeText(MainActivity.this,"Network Request Timeout!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Network Request Timeout!", Toast.LENGTH_LONG).show();
             }
         });
 
         AppController.getInstance().addToRequestQueue(sr);
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -229,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
 
 
         switch (item.getItemId()) {
@@ -356,7 +343,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void takeScreenshot() {
         Date now = new Date();
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
@@ -392,14 +378,13 @@ public class MainActivity extends AppCompatActivity {
 
         String url = urlPref.getString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/");
 
-        if(url != "http://webservices.sgssiddaheal.com/newsfeed/news/"){
+        if (url != "http://webservices.sgssiddaheal.com/newsfeed/news/") {
 
 
             callDataFromNetwork(url);
 
 
         }
-
 
 
     }
@@ -430,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
                         myJsonString = response;
 
 
-                        Toast.makeText(getApplicationContext(),num_pages+ " Articles Found!",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), num_pages + " Articles Found!", Toast.LENGTH_LONG).show();
 
                         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), bundle);
                         mViewPager.setAdapter(mPagerAdapter);
@@ -450,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 Log.d(TAG, "" + error.getMessage() + "," + error.toString());
-                Toast.makeText(MainActivity.this,"Network Request Timeout!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Network Request Timeout!", Toast.LENGTH_LONG).show();
             }
         });
 

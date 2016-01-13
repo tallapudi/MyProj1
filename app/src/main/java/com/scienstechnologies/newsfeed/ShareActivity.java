@@ -35,10 +35,7 @@ public class ShareActivity extends Activity {
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.rel1);
         ImageView ivFacebook = (ImageView) findViewById(R.id.ivFacebook);
         ImageView ivTwitter = (ImageView) findViewById(R.id.ivTwitter);
-        ImageView ivGooglePlus = (ImageView) findViewById(R.id.ivGooglePlus);
-        ImageView ivLinkedin = (ImageView) findViewById(R.id.ivLinkedin);
         ImageView ivWhatsapp = (ImageView) findViewById(R.id.ivWhatsapp);
-        ImageView ivEmail = (ImageView) findViewById(R.id.ivEmail);
         ImageView ivBookmark = (ImageView) findViewById(R.id.ivBookmark);
         ImageView ivCopy = (ImageView) findViewById(R.id.ivCopy);
         ImageView ivClose = (ImageView) findViewById(R.id.ivClose);
@@ -52,15 +49,12 @@ public class ShareActivity extends Activity {
         });
 
 
-
-
         ivFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 share("com.facebook");
             }
         });
-
 
 
         ivTwitter.setOnClickListener(new View.OnClickListener() {
@@ -78,14 +72,6 @@ public class ShareActivity extends Activity {
             }
         });
 
-        ivLinkedin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                share("com.linkedin");
-
-            }
-        });
-
 
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,15 +81,13 @@ public class ShareActivity extends Activity {
         });
 
 
-
     }
 
 
     public static String urlEncode(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8");
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             Log.d(TAG, "UTF-8 should always be supported", e);
             throw new RuntimeException("URLEncoder.encode() failed for " + s);
         }
@@ -140,7 +124,7 @@ public class ShareActivity extends Activity {
             // Several error may come out with file handling or OOM
 
 
-            Toast.makeText(this, "Error saving image! Please check if SDCard is properly inserted",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error saving image! Please check if SDCard is properly inserted", Toast.LENGTH_LONG).show();
             e.printStackTrace();
             return null;
         }
@@ -154,28 +138,35 @@ public class ShareActivity extends Activity {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("image/jpeg");
         List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(share, 0);
-        if (!resInfo.isEmpty()){
+        if (!resInfo.isEmpty()) {
             for (ResolveInfo info : resInfo) {
                 Intent targetedShare = new Intent(android.content.Intent.ACTION_SEND);
                 targetedShare.setType("image/jpeg"); // put here your mime type
 
-                if (info.activityInfo.packageName.toLowerCase().contains(nameApp) ||
-                        info.activityInfo.name.toLowerCase().contains(nameApp)) {
-                    targetedShare.putExtra(Intent.EXTRA_TEXT, "My body of post/email");
-                    Intent i = getIntent();
-                    Uri myScreenshotUri = i.getParcelableExtra("screenshot");
-                    targetedShare.putExtra(Intent.EXTRA_STREAM,myScreenshotUri);
 
-                    targetedShare.setPackage(info.activityInfo.packageName);
-                    targetedShareIntents.add(targetedShare);
+                try {
+                    if (info.activityInfo.packageName.toLowerCase().contains(nameApp) ||
+                            info.activityInfo.name.toLowerCase().contains(nameApp)) {
+                        targetedShare.putExtra(Intent.EXTRA_TEXT, "My body of post/email");
+                        Intent i = getIntent();
+                        Uri myScreenshotUri = i.getParcelableExtra("screenshot");
+                        targetedShare.putExtra(Intent.EXTRA_STREAM, myScreenshotUri);
+
+                        targetedShare.setPackage(info.activityInfo.packageName);
+                        targetedShareIntents.add(targetedShare);
+                    }
+
+
+                    Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Select app to share");
+                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+                    startActivity(chooserIntent);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "App not found on device!", Toast.LENGTH_LONG).show();
+
                 }
             }
-
-            Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Select app to share");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
-            startActivity(chooserIntent);
         }
     }
-
-
 }
