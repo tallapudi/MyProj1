@@ -55,6 +55,7 @@ public class PageFragment extends Fragment {
     TextView tvAuthor;
     TextView tvSource;
     TextView tvDate;
+    TextView tvBy;
     private ProgressDialog mProgressDialog;
     LinearLayout llTotalText;
     RelativeLayout rlContent;
@@ -73,13 +74,16 @@ public class PageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_page, container, false);
 
 
+        Context mContext = getContext();
         mProgressDialog = new ProgressDialog(getContext());
         mProgressDialog.setMessage("Loading..");
         mProgressDialog.show();
 
-       ivPageImage  = (ImageView) rootView.findViewById(R.id.iv_page_image);
+        ivPageImage = (ImageView) rootView.findViewById(R.id.iv_page_image);
         ivPlay = (ImageView) rootView.findViewById(R.id.ivPlay);
 
+        tvBy = (TextView) rootView.findViewById(R.id.tvBy);
+        tvBy.setText("By ");
         tvNewsHead = (TextView) rootView.findViewById(R.id.tvNewsHead);
         tvNewsDetails = (TextView) rootView.findViewById(R.id.tvNewsDetails);
         tvAuthor = (TextView) rootView.findViewById(R.id.tvAuthor);
@@ -91,49 +95,29 @@ public class PageFragment extends Fragment {
         llFragmentPageBackground = (LinearLayout) rootView.findViewById(R.id.llfragmentpagebackground);
 
 
-
-
         ivPageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                try{
-                    try{
+                try {
 
-                        File imageFile  = takeScreenshot();
-                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                        Uri screenshotUri = Uri.fromFile(imageFile);
+                    File imageFile = takeScreenshot();
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    Uri screenshotUri = Uri.fromFile(imageFile);
 
-                        sharingIntent.setType("*/*");
+                    sharingIntent.setType("*/*");
 
-                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
-
-                        Toast.makeText(getActivity(),imageFile.toString(),Toast.LENGTH_LONG).show();
-
-
-
-//                    startActivity(sharingIntent);
-//                    startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-
-                    Intent i = new Intent(getActivity(), ShareActivity.class);
-                    i.setType("*/*");
-//                    i.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-//                    i.putExtra("pathToImage", screenshotUri);
-
-                    i.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
-                        i.putExtra("screenshot", screenshotUri);
-                    startActivity(i);
-
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-
-                }catch (Exception e){
-                    Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_LONG).show();
+                    sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
+                    startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
                 }
 
 
+//                Intent i = new Intent(getActivity(), ShareActivity.class);
+//                i.putExtra("pathToImage", pathToImage);
+//                startActivity(i);
             }
         });
 
@@ -164,7 +148,7 @@ public class PageFragment extends Fragment {
             outputStream.flush();
             outputStream.close();
 
-            Toast.makeText(getActivity(), "Screenshot Saved",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Screenshot Saved", Toast.LENGTH_LONG).show();
 
             return imageFile;
 
@@ -172,7 +156,7 @@ public class PageFragment extends Fragment {
             // Several error may come out with file handling or OOM
 
 
-            Toast.makeText(getActivity(), "Error saving image! Please check if SDCard is properly inserted",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Error saving image! Please check if SDCard is properly inserted", Toast.LENGTH_LONG).show();
             e.printStackTrace();
             return null;
         }
@@ -189,11 +173,10 @@ public class PageFragment extends Fragment {
         SharedPreferences sharedPrefs = getActivity().getSharedPreferences("NightMode", Context.MODE_PRIVATE);
         Boolean nightMode = sharedPrefs.getBoolean("nightmode", false);
 
-        if(nightMode == true){
+        if (nightMode) {
             setFragmentTextColorNightmode();
             setFragmentBackgroundNightmode();
-        }
-        else{
+        } else {
             setFragmentTextColorDaymode();
             setFragmentBackgroundDaymode();
         }
@@ -210,8 +193,7 @@ public class PageFragment extends Fragment {
     }
 
 
-
-    private void shareImage(File file){
+    private void shareImage(File file) {
         Uri uri = Uri.fromFile(file);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
@@ -232,8 +214,12 @@ public class PageFragment extends Fragment {
 
         tvNewsHead.setTextColor(getResources().getColor(R.color.white));
         tvNewsDetails.setTextColor(getResources().getColor(R.color.white));
-    }
+        tvAuthor.setTextColor(getResources().getColor(R.color.white));
+        tvSource.setTextColor(getResources().getColor(R.color.white));
+        tvDate.setTextColor(getResources().getColor(R.color.white));
+        tvBy.setTextColor(getResources().getColor(R.color.white));
 
+    }
 
 
     public void setFragmentBackgroundDaymode() {
@@ -243,7 +229,11 @@ public class PageFragment extends Fragment {
     public void setFragmentTextColorDaymode() {
 
         tvNewsHead.setTextColor(getResources().getColor(R.color.black));
-        tvNewsDetails.setTextColor(getResources().getColor(R.color.black));
+        tvNewsDetails.setTextColor(getResources().getColor(R.color.text_color_cement));
+        tvAuthor.setTextColor(getResources().getColor(R.color.black));
+        tvSource.setTextColor(getResources().getColor(R.color.text_color_cement));
+        tvDate.setTextColor(getResources().getColor(R.color.text_color_cement));
+        tvBy.setTextColor(getResources().getColor(R.color.text_color_cement));
     }
 
 
@@ -274,9 +264,10 @@ public class PageFragment extends Fragment {
                         tvAuthor.setText(jsonObject.getString("author"));
                         tvSource.setText(jsonObject.getString("source"));
                         tvDate.setText(jsonObject.getString("days"));
-                        Picasso.with(getActivity()).load("http://www.sgssiddaheal.com/sciens_dashboard/"+ jsonObject.getString("image_path")).into(ivPageImage);
 
-                        if(jsonObject.getString("video_link").length()==0){
+                        Picasso.with(getContext()).load("http://www.sgssiddaheal.com/sciens_dashboard/" + jsonObject.getString("image_path")).error(R.string.com_facebook_image_download_unknown_error).into(ivPageImage);
+
+                        if (jsonObject.getString("video_link").length() == 0) {
                             ivPlay.setVisibility(View.GONE);
                         }
 
@@ -298,13 +289,12 @@ public class PageFragment extends Fragment {
                         });
 
 
-
                         ivPlay.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                Intent i = new Intent(getActivity(),WebViewActivity.class);
-                                i.putExtra("link",videoLink);
+                                Intent i = new Intent(getActivity(), WebViewActivity.class);
+                                i.putExtra("link", videoLink);
                                 startActivity(i);
 
                             }
@@ -342,9 +332,6 @@ public class PageFragment extends Fragment {
                         }
 
 
-
-
-
                     }
 
                 } catch (JSONException e) {
@@ -374,8 +361,6 @@ public class PageFragment extends Fragment {
             mProgressDialog = null;
         }
     }
-
-
 
 
 }

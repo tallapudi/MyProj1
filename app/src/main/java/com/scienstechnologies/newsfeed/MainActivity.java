@@ -1,14 +1,12 @@
 package com.scienstechnologies.newsfeed;
 
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -35,7 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.scienstechnologies.newsfeed.Menu.MenuActivity;
-import com.scienstechnologies.newsfeed.Menu.MySettingsFragment;
+import com.scienstechnologies.newsfeed.Menu.SettingsFragment;
 import com.scienstechnologies.newsfeed.NewsPage.PageFragment;
 
 import org.json.JSONArray;
@@ -155,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), bundle);
                         mViewPager.setAdapter(mPagerAdapter);
 
-                        MySettingsFragment settingsFragment = new MySettingsFragment();
+                        SettingsFragment settingsFragment = new SettingsFragment();
                         mPagerAdapter.notifyDataSetChanged();
                     }
 
@@ -294,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         public Fragment getActiveFragment(ViewPager container, int position) {
 
             String name = makeFragmentName(container.getId(), position);
@@ -378,12 +377,8 @@ public class MainActivity extends AppCompatActivity {
 
         String url = urlPref.getString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/");
 
-        if (url != "http://webservices.sgssiddaheal.com/newsfeed/news/") {
-
-
+        if (!url.equals("http://webservices.sgssiddaheal.com/newsfeed/news/")) {
             callDataFromNetwork(url);
-
-
         }
 
 
@@ -420,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
                         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), bundle);
                         mViewPager.setAdapter(mPagerAdapter);
 
-                        MySettingsFragment settingsFragment = new MySettingsFragment();
+                       // SettingsFragment settingsFragment = new SettingsFragment();
                         mPagerAdapter.notifyDataSetChanged();
                     }
 

@@ -93,7 +93,7 @@ public class MenuFragment extends Fragment {
 
                         SharedPreferences urlPref = getActivity().getSharedPreferences("urlPref", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor= urlPref.edit();
-                        switch(Integer.valueOf(position)){
+                        switch(position){
 
                             case 0:
                                 editor.putString("url","http://webservices.sgssiddaheal.com/newsfeed/news/");
@@ -102,27 +102,71 @@ public class MenuFragment extends Fragment {
                                 break;
 
                             case 1:
-                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/1");
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/");
                                 editor.commit();
                                 getActivity().finish();
                                 break;
                             case 2:
 
-                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/2");
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/1");
                                 editor.commit();
                                 getActivity().finish();
                                 break;
 
                             case 3:
-                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/3");
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/2");
                                 editor.commit();
                                 getActivity().finish();
                                 break;
                             case 4:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/3");
+                                editor.commit();
+                                getActivity().finish();
                                 break;
                             case 5:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/4");
+                                editor.commit();
+                                getActivity().finish();
                                 break;
                             case 6:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/5");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+                            case 7:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/6");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+                            case 8:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/7");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+                            case 9:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/8");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+                            case 10:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/9");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+                            case 11:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/10");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+                            case 12:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/11");
+                                editor.commit();
+                                getActivity().finish();
+                                break;
+                            case 13:
+                                editor.putString("url", "http://webservices.sgssiddaheal.com/newsfeed/news/12");
+                                editor.commit();
+                                getActivity().finish();
                                 break;
                             default:
 

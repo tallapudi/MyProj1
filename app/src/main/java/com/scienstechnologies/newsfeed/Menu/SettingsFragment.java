@@ -16,7 +16,7 @@ import com.scienstechnologies.newsfeed.R;
 /**
  * Created by vamsitallapudi on 08-Jan-16.
  */
-public class MySettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
 
     @Nullable
