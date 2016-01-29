@@ -1,7 +1,5 @@
-package com.scienstechnologies.newsfeed.Menu;
+package com.treuddm.AppyNews.Menu;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -9,8 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.scienstechnologies.newsfeed.Menu.slidingtab.SlidingTabLayout;
-import com.scienstechnologies.newsfeed.R;
+import com.treuddm.AppyNews.Menu.slidingtab.SlidingTabLayout;
+import com.treuddm.AppyNews.R;
 
 public class MenuActivity extends FragmentActivity {
 

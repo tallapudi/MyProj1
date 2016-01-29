@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.Menu.slidingtab;
+package com.treuddm.AppyNews.Menu.slidingtab;
 
 /**
  * Created by Vamsi Tallapudi on 25-Nov-15.
@@ -34,7 +34,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.scienstechnologies.newsfeed.R;
+import com.treuddm.AppyNews.R;
 
 
 /**

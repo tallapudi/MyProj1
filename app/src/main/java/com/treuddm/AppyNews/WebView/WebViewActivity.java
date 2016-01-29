@@ -1,17 +1,15 @@
-package com.scienstechnologies.newsfeed.WebView;
+package com.treuddm.AppyNews.WebView;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
-import com.scienstechnologies.newsfeed.R;
+import com.treuddm.AppyNews.R;
 
 public class WebViewActivity extends AppCompatActivity {
 

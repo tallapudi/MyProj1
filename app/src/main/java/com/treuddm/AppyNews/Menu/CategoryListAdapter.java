@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.Menu;
+package com.treuddm.AppyNews.Menu;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.scienstechnologies.newsfeed.R;
+import com.treuddm.AppyNews.R;
 
 import java.util.List;
 

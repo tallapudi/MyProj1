@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.Menu.slidingtab;
+package com.treuddm.AppyNews.Menu.slidingtab;
 
 /**
  * Created by Vamsi Tallapudi on 25-Nov-15.

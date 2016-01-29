@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed;
+package com.treuddm.AppyNews;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,13 +7,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.treuddm.AppyNews.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

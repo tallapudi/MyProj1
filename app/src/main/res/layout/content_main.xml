@@ -7,7 +7,7 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:weightSum="5.4"
-    tools:context="com.scienstechnologies.newsfeed.MainActivity"
+    tools:context="com.treuddm.AppyNews.MainActivity"
     tools:showIn="@layout/activity_main">
 
 
@@ -36,7 +36,7 @@
         android:weightSum="3"
         android:orientation="vertical">
 
-        <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+        <com.treuddm.AppyNews.AutoTextView.AutoTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2.4"
@@ -44,7 +44,7 @@
             android:textSize="35sp"
             android:text="Utah’s Unicorns, How “Silicon Slopes” is Gaining Momentum" />
 
-        <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+        <com.treuddm.AppyNews.AutoTextView.AutoTextView
             android:layout_weight="0.6"
             android:layout_width="match_parent"
             android:textSize="24sp"

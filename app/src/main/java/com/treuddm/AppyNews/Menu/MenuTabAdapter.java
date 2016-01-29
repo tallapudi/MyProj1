@@ -1,9 +1,8 @@
-package com.scienstechnologies.newsfeed.Menu;
+package com.treuddm.AppyNews.Menu;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.widget.RelativeLayout;
 
 /**
  * Created by vamsitallapudi on 05-Jan-16.

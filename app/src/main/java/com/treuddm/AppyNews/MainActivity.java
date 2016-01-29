@@ -1,6 +1,7 @@
-package com.scienstechnologies.newsfeed;
+package com.treuddm.AppyNews;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,9 +33,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
-import com.scienstechnologies.newsfeed.Menu.MenuActivity;
-import com.scienstechnologies.newsfeed.Menu.SettingsFragment;
-import com.scienstechnologies.newsfeed.NewsPage.PageFragment;
+import com.treuddm.AppyNews.Menu.MenuActivity;
+import com.treuddm.AppyNews.Menu.SettingsFragment;
+import com.treuddm.AppyNews.NewsPage.PageFragment;
+import com.treuddm.AppyNews.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private ViewPager mViewPager;
+
+    Context mContext;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -176,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
 
     /**
@@ -297,7 +304,6 @@ public class MainActivity extends AppCompatActivity {
 
             String name = makeFragmentName(container.getId(), position);
             return getSupportFragmentManager().findFragmentByTag(name);
-
         }
 
         private String makeFragmentName(int viewId, int index) {
@@ -422,8 +428,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -449,7 +453,5 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = urlPref.edit();
         editor.clear();
         editor.commit();
-
-
     }
 }

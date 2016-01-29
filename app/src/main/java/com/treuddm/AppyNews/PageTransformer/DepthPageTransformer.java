@@ -1,7 +1,5 @@
-package com.scienstechnologies.newsfeed.PageTransformer;
+package com.treuddm.AppyNews.PageTransformer;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 

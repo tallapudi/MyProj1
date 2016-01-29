@@ -8,7 +8,7 @@
     android:background="#00ffffff"
     android:orientation="vertical"
     android:weightSum="5.4"
-    tools:context="com.scienstechnologies.newsfeed.MainActivity">
+    tools:context="com.treuddm.AppyNews.MainActivity">
     <!--
     tools:showIn="@layout/activity_main"-->
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.4">
 
-            <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+            <com.treuddm.AppyNews.AutoTextView.AutoTextView
                 android:id="@+id/tvNewsHead"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -132,7 +132,7 @@
         </LinearLayout>
 
 
-        <com.scienstechnologies.newsfeed.AutoTextView.AutoTextView
+        <com.treuddm.AppyNews.AutoTextView.AutoTextView
             android:id="@+id/tvNewsDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

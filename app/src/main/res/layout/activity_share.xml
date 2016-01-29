@@ -5,7 +5,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:background = "#00000000"
-                tools:context="com.scienstechnologies.newsfeed.ShareActivity">
+                tools:context="com.treuddm.AppyNews.ShareActivity">
 
     <TextView
         android:id="@+id/textView"

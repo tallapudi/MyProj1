@@ -25,4 +25,10 @@
     <color name="list_row_hover_start_color">#ebeef0</color>
     <color name="list_row_hover_end_color">#1c9ef4</color>
     <color name="translucent_color">#00000000</color>
+
+
+    <!--Colors for Daily Package-->
+    <color name="daily_quote_background">#3299da</color>
+    <color name = "daily_event_background">#ffd55f</color>
+
 </resources>

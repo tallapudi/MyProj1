@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.Menu;
+package com.treuddm.AppyNews.Menu;
 
 /**
  * Created by vamsitallapudi on 07-Jan-16.

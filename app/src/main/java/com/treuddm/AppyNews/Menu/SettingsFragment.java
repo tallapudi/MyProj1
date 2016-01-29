@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.Menu;
+package com.treuddm.AppyNews.Menu;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import com.scienstechnologies.newsfeed.R;
+import com.treuddm.AppyNews.R;
 
 /**
  * Created by vamsitallapudi on 08-Jan-16.

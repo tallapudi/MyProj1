@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.Menu;
+package com.treuddm.AppyNews.Menu;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.scienstechnologies.newsfeed.Menu.CategoryListAdapter;
-import com.scienstechnologies.newsfeed.Menu.CategoryModel;
-import com.scienstechnologies.newsfeed.R;
+import com.treuddm.AppyNews.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +93,8 @@ public class MenuFragment extends Fragment {
                         switch(position){
 
                             case 0:
-                                editor.putString("url","http://webservices.sgssiddaheal.com/newsfeed/news/");
-                                editor.commit();
+                                editor.putString("url","C");
+                                editor.commit() ;
                                 getActivity().finish();
                                 break;
 

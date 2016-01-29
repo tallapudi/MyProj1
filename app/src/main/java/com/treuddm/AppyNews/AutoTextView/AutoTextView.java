@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed.AutoTextView;
+package com.treuddm.AppyNews.AutoTextView;
 /**
  *               DO WHAT YOU WANT TO PUBLIC LICENSE
  *                    Version 2, December 2004

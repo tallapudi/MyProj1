@@ -1,5 +1,6 @@
-package com.scienstechnologies.newsfeed.NewsPage;
+package com.treuddm.AppyNews.NewsPage;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,9 +27,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
-import com.scienstechnologies.newsfeed.R;
-import com.scienstechnologies.newsfeed.ShareActivity;
-import com.scienstechnologies.newsfeed.WebView.WebViewActivity;
+import com.treuddm.AppyNews.Daily.DailyEvent;
+import com.treuddm.AppyNews.Daily.DailyQuote;
+import com.treuddm.AppyNews.Daily.DailyTitbit;
+import com.treuddm.AppyNews.R;
+import com.treuddm.AppyNews.WebView.WebViewActivity;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -238,7 +242,13 @@ public class PageFragment extends Fragment {
 
 
     public void setNews(int i, String news_url) {
+
+
+
         final int j = i;
+
+
+
 
         StringRequest sr = new StringRequest(Request.Method.GET, news_url, new Response.Listener<String>() {
             @Override
@@ -274,6 +284,49 @@ public class PageFragment extends Fragment {
 
                         final String sourceLink = jsonObject.getString("source_link");
                         final String videoLink = jsonObject.getString("video_link");
+
+
+                        if( j==0){
+
+                            SharedPreferences dailyQuotePref = getActivity().getSharedPreferences("dailyQuotePref", Context.MODE_PRIVATE);
+
+                            long prevTime = dailyQuotePref.getLong("dailyQuoteTime", 0);
+
+                            long currentTime = System.currentTimeMillis();
+                            if(currentTime-prevTime > 86400000){
+                                SharedPreferences.Editor editor = dailyQuotePref.edit();
+                                editor.putLong("dailyQuoteTime",currentTime);
+                                editor.commit();
+                                Intent intent = new Intent(getActivity(), DailyQuote.class);
+                                startActivity(intent);
+                            }
+                        }
+                        if(j==4){
+                            SharedPreferences dailyEventPref = getActivity().getSharedPreferences("dailyEventPref", Context.MODE_PRIVATE);
+                            long prevTime = dailyEventPref.getLong("dailyEventTime",0);
+                            long currentTime = System.currentTimeMillis();
+                            if(currentTime - prevTime > 86400000){
+                                SharedPreferences.Editor editor = dailyEventPref.edit();
+                                editor.putLong("dailyEventTime",currentTime);
+                                editor.commit();
+                                Intent intent = new Intent(getActivity(),DailyEvent.class);
+                                startActivity(intent);
+                            }
+
+                        }
+                        if(j== 9){
+                            SharedPreferences dailyTitbitPref = getActivity().getSharedPreferences("dailyQuotePref", Context.MODE_PRIVATE);
+                            long prevTime = dailyTitbitPref.getLong("dailyTitbitTime", 0);
+                            long currentTime = System.currentTimeMillis();
+
+                            if(currentTime - prevTime> 86400000){
+                                SharedPreferences.Editor editor = dailyTitbitPref.edit();
+                                editor.putLong("dailyTitbitTime",currentTime);
+                                editor.commit();
+                                Intent intent = new Intent(getActivity(), DailyTitbit.class);
+                                startActivity(intent);
+                            }
+                        }
 
                         llTotalText.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -350,6 +403,8 @@ public class PageFragment extends Fragment {
         });
 
         AppController.getInstance().addToRequestQueue(sr);
+
+
 
 
     }

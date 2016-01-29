@@ -1,4 +1,4 @@
-package com.scienstechnologies.newsfeed;
+package com.treuddm.AppyNews;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
