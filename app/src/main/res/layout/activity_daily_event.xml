@@ -21,7 +21,7 @@
             android:textStyle="bold"
             android:text="*Event of the Day"
             android:paddingBottom="10dp"
-            android:layout_above="@+id/tvEventDetail"
+            android:layout_above="@+id/tvDailyEventDetail"
             android:gravity="center"
             android:layout_gravity="center"
 
@@ -50,6 +50,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tvDailyEventShare"
             android:paddingTop="5dp"
             android:textSize="16dp"
             android:layout_gravity="center"

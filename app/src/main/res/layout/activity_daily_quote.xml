@@ -7,21 +7,79 @@
     android:layout_height="match_parent"
     tools:context="com.treuddm.AppyNews.Daily.DailyQuote">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/daily_quote_background"
-        android:layout_weight="0.5">
+        android:orientation="vertical"
+        android:layout_weight="0.05">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="20dp"
+            android:layout_height="15dp"
+            android:text='"'
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textStyle="italic"
+            android:layout_gravity="center"
+            android:id="@+id/textView2"
+
+            android:typeface="serif"
+            android:layout_above="@+id/tvDailyQuoteHeading"
+            android:layout_toLeftOf="@+id/tvDailyQuoteHeading"
+            android:layout_toStartOf="@+id/tvDailyQuoteHeading"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Inspiration"
+            android:paddingBottom="20dp"
             android:gravity="center"
+
+            android:id="@+id/tvDailyQuoteHeading"
+            android:layout_above="@+id/tvDailyQuoteDetail"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tvDailyQuoteDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:gravity="center"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:text="If you Dream it, You can do it."/>
+            tools:text="If You Dream it, You can Do it."
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:id="@+id/View1"
+            android:layout_below="@id/tvDailyQuoteDetail"/>
+        <TextView
+            android:id="@+id/tvQuoteAuthor"
+            android:layout_below="@id/View1"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            tools:text="Walt Disney"
+            />
+
+    </RelativeLayout>
 
 
     <LinearLayout
@@ -34,13 +92,15 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:textSize="16dp"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:text="-Walt disney"
+            android:id="@+id/tvDailyQuoteShare"
+            android:text="Share"
             android:textStyle="italic"/>
 
     </LinearLayout>
 
 
-    
+
 
 </LinearLayout>

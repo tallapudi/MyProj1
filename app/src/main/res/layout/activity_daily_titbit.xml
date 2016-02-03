@@ -23,26 +23,27 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:id="@+id/textView2"
-            android:layout_above="@+id/tvHeading"
-            android:layout_toLeftOf="@+id/tvHeading"
-            android:layout_toStartOf="@+id/tvHeading"/>
+            android:layout_above="@+id/tvTitbitHeading"
+            android:layout_toLeftOf="@+id/tvTitbitHeading"
+            android:layout_toStartOf="@+id/tvTitbitHeading"
+            android:typeface="serif"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22dp"
+            android:textSize="22sp"
 
             android:textStyle="bold"
             android:text="Titbit"
             android:paddingBottom="20dp"
             android:gravity="center"
 
-            android:id="@+id/tvHeading"
-            android:layout_above="@+id/tvEventDetail"
+            android:id="@+id/tvTitbitHeading"
+            android:layout_above="@+id/tvTitbitDetail"
             android:layout_centerHorizontal="true"/>
 
         <TextView
-            android:id="@+id/tvEventDetail"
+            android:id="@+id/tvTitbitDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
@@ -62,6 +63,7 @@
         android:layout_weight="0.5">
 
         <TextView
+            android:id="@+id/tvDailyTitbitShare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"

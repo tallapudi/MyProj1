@@ -99,31 +99,7 @@ public class PageFragment extends Fragment {
         llFragmentPageBackground = (LinearLayout) rootView.findViewById(R.id.llfragmentpagebackground);
 
 
-        ivPageImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                try {
-
-                    File imageFile = takeScreenshot();
-                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                    Uri screenshotUri = Uri.fromFile(imageFile);
-
-                    sharingIntent.setType("*/*");
-
-                    sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a sample text along with image");
-                    startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-                } catch (Exception e) {
-                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
-                }
-
-
-//                Intent i = new Intent(getActivity(), ShareActivity.class);
-//                i.putExtra("pathToImage", pathToImage);
-//                startActivity(i);
-            }
-        });
 
         return rootView;
     }
@@ -185,7 +161,6 @@ public class PageFragment extends Fragment {
             setFragmentBackgroundDaymode();
         }
 
-
     }
 
     private void openScreenshot(File imageFile) {
@@ -195,6 +170,7 @@ public class PageFragment extends Fragment {
         intent.setDataAndType(uri, "image/*");
         startActivity(intent);
     }
+
 
 
     private void shareImage(File file) {
@@ -265,7 +241,6 @@ public class PageFragment extends Fragment {
                     String message = object.getString("message");
                     Log.d(TAG, message);
                     String status = object.getString("status");
-
                     if (status.equals("success")) {
                         JSONArray jsonArray = object.getJSONArray("data");
                         final JSONObject jsonObject = jsonArray.getJSONObject(j);
@@ -281,9 +256,36 @@ public class PageFragment extends Fragment {
                             ivPlay.setVisibility(View.GONE);
                         }
 
+                        
 
                         final String sourceLink = jsonObject.getString("source_link");
                         final String videoLink = jsonObject.getString("video_link");
+
+
+                        ivPageImage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                try {
+
+                                    File imageFile = takeScreenshot();
+                                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                                    Uri screenshotUri = Uri.fromFile(imageFile);
+
+                                    sharingIntent.setType("*/*");
+
+                                    sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Read more at: "+ sourceLink);
+                                    startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+                                } catch (Exception e) {
+                                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+                                }
+
+//                Intent i = new Intent(getActivity(), ShareActivity.class);
+//                i.putExtra("pathToImage", pathToImage);
+//                startActivity(i);
+                            }
+                        });
 
 
                         if( j==0){
@@ -325,6 +327,7 @@ public class PageFragment extends Fragment {
                                 editor.commit();
                                 Intent intent = new Intent(getActivity(), DailyTitbit.class);
                                 startActivity(intent);
+
                             }
                         }
 
