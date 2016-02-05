@@ -137,7 +137,6 @@ public class PageFragment extends Fragment {
 
 
             Toast.makeText(getActivity(), "Error saving image! Please check if SDCard is properly inserted", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
             return null;
         }
 
@@ -278,7 +277,7 @@ public class PageFragment extends Fragment {
                                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Read more at: "+ sourceLink);
                                     startActivity(Intent.createChooser(sharingIntent, "Share image using"));
                                 } catch (Exception e) {
-                                    Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
                                 }
 
 //                Intent i = new Intent(getActivity(), ShareActivity.class);

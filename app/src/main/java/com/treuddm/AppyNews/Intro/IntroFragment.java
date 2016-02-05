@@ -18,19 +18,18 @@ import com.treuddm.AppyNews.R;
 public class IntroFragment extends Fragment {
 
     int position;
-    int introImages[] = {R.drawable.intro_1,R.drawable.intro_2,R.drawable.intro_3,R.drawable.intro_4};
+    int introImages[] = {R.drawable.intro_0, R.drawable.intro_1,R.drawable.intro_2,R.drawable.intro_3,R.drawable.intro_4};
 
 
     public static IntroFragment newInstance(int position){
-        IntroFragment introFragment= new IntroFragment(position);
+        Bundle args = new Bundle();
+        args.putInt("position",position);
+        IntroFragment introFragment= new IntroFragment();
+        introFragment.setArguments(args);
         return introFragment;
     }
     public IntroFragment(){
 
-    }
-
-    public IntroFragment(int position){
-        this.position = position;
     }
 
     @Nullable
@@ -38,6 +37,8 @@ public class IntroFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View v = inflater.inflate(R.layout.fragment_intro,container,false);
+
+        position = (int) getArguments().getInt("position");
 
         LinearLayout llIntroFragment = (LinearLayout) v.findViewById(R.id.llIntroFragment);
         llIntroFragment.setBackgroundResource(introImages[position]);

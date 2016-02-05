@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class DailyTitbit extends AppCompatActivity {
 
     private static final String TAG = "DailyTitbit.java";
     ProgressDialog mProgressDialog;
-    TextView tvDailyTitbitDetail,tvDailyTitbitShare;
+    TextView tvDailyTitbitDetail, tvDailyTitbitShare;
     String url = "http://webservices.sgssiddaheal.com/newsfeed/day_feed";
 
 
@@ -55,7 +56,6 @@ public class DailyTitbit extends AppCompatActivity {
         }
 
 
-
         setContentView(R.layout.activity_daily_titbit);
 
 
@@ -63,10 +63,17 @@ public class DailyTitbit extends AppCompatActivity {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
 
+        ImageView ivClose = (ImageView) findViewById(R.id.ivClose);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        tvDailyTitbitDetail = (TextView) findViewById(R.id.tvDailyEventDetail);
+        tvDailyTitbitDetail = (TextView) findViewById(R.id.tvTitbitDetail);
 
-        tvDailyTitbitShare = (TextView) findViewById(R.id.tvDailyEventShare);
+        tvDailyTitbitShare = (TextView) findViewById(R.id.tvDailyTitbitShare);
 
         StringRequest sr = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -86,7 +93,7 @@ public class DailyTitbit extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                try{
+                                try {
                                     File imageFile = takeScreenshot();
                                     Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                                     Uri screenshotUri = Uri.fromFile(imageFile);
@@ -96,8 +103,8 @@ public class DailyTitbit extends AppCompatActivity {
                                     sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
                                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Download Android app at: https://play.google.com/store/apps/details?id=com.treuddm.appynews");
                                     startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-                                }catch (Exception e){
-                                    Toast.makeText(DailyTitbit.this,e.toString(),Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    Toast.makeText(DailyTitbit.this, e.toString(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -121,7 +128,6 @@ public class DailyTitbit extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(sr);
 
     }
-
 
 
     private void hidePDialog() {

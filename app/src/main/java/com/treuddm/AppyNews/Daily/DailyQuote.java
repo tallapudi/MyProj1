@@ -3,6 +3,7 @@ package com.treuddm.AppyNews.Daily;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +70,14 @@ public class DailyQuote extends AppCompatActivity {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
 
+        ImageView ivClose = (ImageView) findViewById(R.id.ivClose);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         tvDailyQuoteDetail = (TextView) findViewById(R.id.tvDailyQuoteDetail);
         tvQuoteAuthor = (TextView) findViewById(R.id.tvQuoteAuthor);
@@ -87,7 +97,7 @@ public class DailyQuote extends AppCompatActivity {
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         JSONObject quoteObject = jsonArray.getJSONObject(1);
                         tvDailyQuoteDetail.setText(quoteObject.getString("day_feed_text"));
-                        tvQuoteAuthor.setText(quoteObject.getString("day_feed_text"));
+                        tvQuoteAuthor.setText(quoteObject.getString("author"));
 
                         tvDailyQuoteShare.setOnClickListener(new View.OnClickListener() {
                             @Override

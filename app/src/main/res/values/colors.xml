@@ -30,5 +30,6 @@
     <!--Colors for Daily Package-->
     <color name="daily_quote_background">#3299da</color>
     <color name = "daily_event_background">#ffd55f</color>
+    <color name="daily_titbit_background">#fd4842</color>
 
 </resources>

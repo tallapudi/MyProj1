@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/daily_event_background"
+        android:background="@color/daily_titbit_background"
         android:orientation="vertical"
         android:layout_weight="0.05">
 
@@ -22,6 +22,7 @@
             android:textStyle="italic"
             android:gravity="center"
             android:layout_gravity="center"
+            android:textColor="@color/white"
             android:id="@+id/textView2"
             android:layout_above="@+id/tvTitbitHeading"
             android:layout_toLeftOf="@+id/tvTitbitHeading"
@@ -37,7 +38,7 @@
             android:text="Titbit"
             android:paddingBottom="20dp"
             android:gravity="center"
-
+            android:textColor="@color/white"
             android:id="@+id/tvTitbitHeading"
             android:layout_above="@+id/tvTitbitDetail"
             android:layout_centerHorizontal="true"/>
@@ -48,11 +49,22 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:gravity="center"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:text="The first American-made condoms were manufactured from vulcanized rubber and were meant to be re-used."
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
+
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/ivClose"
+            android:src="@drawable/close_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 

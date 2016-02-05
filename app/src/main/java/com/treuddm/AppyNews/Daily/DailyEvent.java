@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,8 +67,16 @@ public class DailyEvent extends AppCompatActivity {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
 
+        ImageView ivClose = (ImageView) findViewById(R.id.ivClose);
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-        tvDailyEventDetail = (TextView) findViewById(R.id.tvDailyEventDetail);
+
+        tvDailyEventDetail = (TextView) findViewById(R.id.tvEventDetail);
 
         tvDailyEventShare = (TextView) findViewById(R.id.tvDailyEventShare);
 

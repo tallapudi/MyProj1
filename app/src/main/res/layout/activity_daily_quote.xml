@@ -79,6 +79,15 @@
             tools:text="Walt Disney"
             />
 
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:id="@+id/ivClose"
+            android:src="@drawable/close_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
     </RelativeLayout>
 
 

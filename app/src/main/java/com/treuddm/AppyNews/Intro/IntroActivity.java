@@ -89,7 +89,7 @@ public class IntroActivity extends AppCompatActivity {
             }
             public void onPageScrolled(final int position, float positionOffset, int positionOffsetPixels) {
 
-                if(position ==3){
+                if(position ==4){
                     bNext.setText("Finish");
                     bNext.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -190,7 +190,7 @@ public class IntroActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
     }
 

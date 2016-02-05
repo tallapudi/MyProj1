@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.4">
 
-            <com.treuddm.AppyNews.AutoTextView.AutoTextView
+            <TextView
                 android:id="@+id/tvNewsHead"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -68,7 +68,7 @@
                 android:layout_toStartOf="@+id/ivCategoryIcon"
                 tools:text="Utah’s Unicorns, How “Silicon Slopes” is Gaining Momentum"
                 android:textColor="#494949"
-                android:textSize="35sp"
+                android:textSize="22sp"
                 android:textStyle="bold"/>
 
             <ImageView
@@ -132,14 +132,14 @@
         </LinearLayout>
 
 
-        <com.treuddm.AppyNews.AutoTextView.AutoTextView
+        <TextView
             android:id="@+id/tvNewsDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:textColor="#494949"
             tools:text="@string/news_details"
-            android:textSize="24sp"/>
+            android:textSize="14sp"/>
     </LinearLayout>
 
     <LinearLayout
